@@ -3,11 +3,25 @@
 --- Any questions? Ask on:      Steam Workshop QUI/Examples     Discord: -soon-     Dm me on Discord    Ping me on #lua in Stormworks Discord server
 
 
+--- TO DO : ENUM -> ALIAS
+--- !!!!!!!!!!!!!
+--- !!!!!!!!!!!!!!!
+--- 
+--- !
+--- 
+--- 
+--- 
+--- 
+--- 
+--- 
+--- 
+--- 
+
 ---@section REMOVE THIS BEFORE COMPILATION AFTER YOU FINISH YOUR PROJECT !!!!!!!!!!!
 
 ---@class NumberWithMass
----@field 1 number value
----@field 2 number mass
+---@field [1] number value
+---@field [2] number mass
 __NumberWithMasses = { }
 
 ---@class void
@@ -41,6 +55,25 @@ __Objects = { }
 ---@field FuncOn boolean|nil? Run function?
 ---@field PrevClick boolean|nil? In previous tick, was I clicking it? -- for Pulse and Toggle
 __Datas = { }
+
+
+
+--- Fast debugging
+---@param a any
+function DEBUG(a)
+
+    if type(a) == type({ }) then
+        for k, v in pairs(a) do
+            print(k, v)
+        end
+    elseif type(a) == "function" then
+        print("function", a())
+    else
+        print(a)
+    end
+end
+
+
 
 
 ---@endsection
@@ -117,13 +150,39 @@ function atg(n, m)
 end
 
 
+--- Gives information, if the number fits between `min` and `max`
+---@param value number
+---@param min number|nil? `Default = 0`
+---@param max number|nil? `Default = 1`
+---@return boolean
+function InSpan(value, min, max)
+    min = min or 0
+    max = max or 1
+
+    return value >= min and value <= max
+end
+
+
+--- Returns a value which will be between `min` and `max`.
+---@param num number
+---@param min number|nil? `default = 0`
+---@param max number|nil? `default = 1`
+---@return number # returns the `num` or `min`/`max`
+function clamp(num, min, max)
+    min = min or 0
+    max = max or 1
+
+    return math.max(math.min(num, max), min)
+end
+
+
 --- Return value translated to the range of `0.0 - 1.0`
 ---@param min number Minimal value of the `value`
 ---@param max number Maximal value of the `value`
 ---@param value number Number between the `min` and `max`
 ---@return number # value 0-1
 function ZeroOne(min, max, value)
-    return (value - min) / (max - min)
+    return clamp((value - min) / (max - min))
 end
 
 
@@ -131,30 +190,7 @@ end
 ---@param n number
 ---@return number # 1 if `> 0`, -1 if `< 0`
 function sign(n)
-    if n < 0 then
-        return -1
-    end
-
-    return 1
-end
-
-
---- Returns a value which will be between `min` and `max`.
----@param num number
----@param min number `default = 0`
----@param max number `default = 1`
----@return number # returns the `num` or `min`/`max`
-function clamp(num, min, max)
-    min = min or 0
-    max = max or 1
-
-    if num > max then
-        return max
-    elseif num < min then
-        return min
-    end
-
-    return num
+    return n < 0 and -1 or 1
 end
 
 
@@ -163,25 +199,8 @@ end
 ---@param str string The base string
 ---@param newChar string Character to add to `str`
 ---@return string # A modified string which won't be longer than `maxLen`
-function sclamp(maxLen, str, newChar)
-    if #str + 1 > maxLen then
-        return str
-    end
-
-    return str .. newChar
-end
-
-
---- Gives information, if the number fits between `min` and `max`
----@param value number
----@param min number
----@param max number
----@return boolean
-function InSpan(value, min, max)
-    min = min or 0
-    max = max or 1
-
-    return value >= min and value <= max
+function sclamp(str, maxLen, newChar)
+    return #str + 1 > maxLen and str or str .. newChar
 end
 
 
@@ -193,7 +212,7 @@ end
 ---@return number # Rounded number
 function round(num, decimals)
     if decimals then
-        return tonumber( string.format( tostring(num), "%f." .. decimals ) )
+        return tonumber( string.format( "%." .. decimals .. "f", tostring(num)) )
     end
 
     return floor(num + 0.5)
@@ -212,10 +231,9 @@ function avg(...)
         end
     end
 
-    if #t == 0 then return 0 end
-
-    return sum / #t
+    return #t == 0 and 0 or sum / #t
 end
+
 
 
 --- Returns an arithmetical average of the numbers.
@@ -232,9 +250,7 @@ function avgm(...)
         end
     end
 
-    if div == 0 then return 0 end
-
-    return sum / div
+    return div == 0 and 0 or sum / div
 end
 
 
@@ -269,7 +285,7 @@ end
 function FillPrefix(value, minLen, prefix)
     value = tostring(value)
 
-    for i = 0, minLen - #value do
+    for i = 1, minLen - #value do
         value = prefix .. value
     end
 
@@ -282,12 +298,13 @@ end
 ---@return table
 function totable(str)
     local result = { }
-    for i = 1, #str + 1 do
+    for i = 1, #str do
         table.insert(result, string.sub(str, i, i))
     end
 
     return result
 end
+
 
 --- Returns the index of `value` in `array`
 ---@param arr table
@@ -302,6 +319,8 @@ function IndexOf(arr, value)
 
     return nil
 end
+
+
 
 ---@endsection
 
@@ -330,7 +349,7 @@ StouchX, StouchY = nil, nil
 ---@param y2 number Point B
 ---@return boolean # Is touch inside the box
 function IsInBox(x, y, x2, y2)
-    return Touching and TouchX > x and TouchX < x2 and TouchY > y and TouchY < y2
+    return Touching and TouchX >= x and TouchX <= x2 and TouchY >= y and TouchY <= y2
 end
 
 
@@ -341,7 +360,7 @@ end
 ---@param y2 number Point B
 ---@return boolean # Is stouch inside the box
 function IsInBox2(x, y, x2, y2)
-    return Stouching and StouchX > x and StouchX < x2 and StouchY > y and StouchY < y2
+    return Stouching and StouchX >= x and StouchX <= x2 and StouchY >= y and StouchY <= y2
 end
 
 
@@ -413,10 +432,10 @@ function TextHeight(text, maxWidth)
     local height, currentWidth = #text > 0 and 5 or 0, 0
 
     for k, c in pairs(totable(text)) do
-        if c == '\n' or currentWidth - 1 > maxWidth then
+        if c == '\n' or currentWidth + 4 > maxWidth then
             height = height + 6
             currentWidth = 0
-        elseif c ~= "" then
+        else
             currentWidth = currentWidth + 5
         end
     end
@@ -427,6 +446,8 @@ function TextHeight(text, maxWidth)
 
     return height, height > 5 and (height + 1) / 6 or height / 5
 end
+
+
 
 ---@endsection
 
@@ -504,13 +525,12 @@ function Clear(toColor)
     screen.drawClear()
 end
 
----@enum TextStyles
-EnumTextStyles = {
-    Underline = 'u',
-    Strike = 's'
-}
 
----@enum TitleStyles
+---@alias TextStyle
+---| 'u' # Underline
+---| 's' # Strike
+
+---@enum TitleStyle
 EnumTitleStyles = {
     Simple = 0,
     Fancy = 1
@@ -522,7 +542,7 @@ EnumTitleStyles = {
 ---@param fore Color|Color[]|nil? Color or gradient `Default = Foreground`
 ---@param back Color|nil? Background color `Default = Background`
 ---@param border Color|nil? Border color `Default = no border`
----@param decor TextStyles|TitleStyles? Text decoration `Default = no decoration`
+---@param decor TextStyle|TitleStyle? Text decoration `Default = no decoration`
 ---@return Style
 function Style(fore, back, border, decor)
     return {
@@ -532,7 +552,6 @@ function Style(fore, back, border, decor)
         Decor = decor
     }
 end
-
 
 
 --- Perfect for debugging and error making
