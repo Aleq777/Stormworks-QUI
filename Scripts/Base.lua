@@ -1007,7 +1007,7 @@ end
 function ForceData(id, value, funcOn, active, prevClick)
     _Data[id] = {
         Value = value or false,
-        FuncOn = funcOn or false ,
+        FuncOn = funcOn or false,
         Active = active or false,
         PrevClick = prevClick or false
     }
