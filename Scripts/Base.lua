@@ -340,7 +340,7 @@ end
 ---@param x2 number Point B
 ---@param y2 number Point B
 ---@return boolean # Is stouch inside the box
-function IsInBoxS(x, y, x2, y2)
+function IsInBox2(x, y, x2, y2)
     return Stouching and StouchX > x and StouchX < x2 and StouchY > y and StouchY < y2
 end
 
@@ -972,7 +972,7 @@ _Data = { }
 --- Get the value of interactive element
 ---@param id any ID of interactive data
 ---@return any
-function GetValue(id)
+function GetData(id)
     if not _Data[id] then return nil end
 
     return _Data[id].Value
@@ -984,7 +984,7 @@ end
 ---@param value any New value
 ---@param force boolean? If the interactive element doesn't exist, create new?
 ---@return boolean # <ul> <li>`true`, if created new element </li> <li>`false`, if updated existing element </li> </ul>
-function SetValue(id, value, force)
+function SetData(id, value, force)
     if not _Data[id] then
         if force then
             ForceData(id, value)
