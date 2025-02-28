@@ -36,10 +36,10 @@ __Objects = { }
 
 
 ---@class Data
----@field Value any The value
----@field Active boolean Display it as active?
----@field FuncOn boolean Run function?
----@field PrevClick boolean In previous tick, was I clicking it? -- for Pulse and Toggle
+---@field Value any? The value
+---@field Active boolean|nil? Display it as active?
+---@field FuncOn boolean|nil? Run function?
+---@field PrevClick boolean|nil? In previous tick, was I clicking it? -- for Pulse and Toggle
 __Datas = { }
 
 
