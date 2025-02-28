@@ -3,6 +3,7 @@
 
 --- REWORK !!!
 
+-- See "OPTIMISE_ME.md" for optimising code below
 PushDict(Templates, {
     ["Button"] = function (x, y, obj, id)
         if not _Data[id] then
@@ -75,8 +76,8 @@ PushDict(Templates, {
 })
 
 
----@enum ButtonModes
-EnumButtonModes = {
+---@enum ButtonMode
+EnumButtonMode = {
     -- Default. When you hold, function is active.
     Push = 0,
     -- When you hold, function is called once till you release and press again.
@@ -92,7 +93,7 @@ EnumButtonModes = {
 ---@param styleOn Style Displays, when button is pressed or active
 ---@param width number|nil Leave `nil`, if you want auto-size
 ---@param height number|nil Leave `nil`, if you want auto-size
----@param mode ButtonModes|nil `Default = Push`
+---@param mode ButtonMode|nil `Default = Push`
 ---@param func function The function to call, when button is activated
 ---@param args table|nil? Arguments for the function. Leave nil or empty table, if none
 ---@param isAnon boolean|nil?
@@ -118,7 +119,7 @@ end
 ---@param styleOn Style Displays, when button is pressed or active
 ---@param width number|nil Leave `nil`, if you want auto-size
 ---@param height number|nil Leave `nil`, if you want auto-size
----@param mode ButtonModes|nil `Default = Push`
+---@param mode ButtonMode|nil `Default = Push`
 ---@param func function The function to call, when button is activated
 ---@param args table|nil? Arguments for the function. Leave nil or empty table, if none
 function DrawButton(x, y, id, title, styleOff, styleOn, width, height, mode, func, args)
