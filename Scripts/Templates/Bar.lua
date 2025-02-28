@@ -1,4 +1,5 @@
 -- QUI 2 Gauges and Sliders
+--- REQUIRED: "Base.lua"
 
 -- See "OPTIMISE_ME.md" for optimising code below
 PushDict(Templates, {
