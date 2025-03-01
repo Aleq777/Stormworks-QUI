@@ -9,6 +9,9 @@ PushDict(Templates, {
 })
 
 
+---@alias SButtonMode
+---|
+
 --- An advanced button that works with both touches (touch 1 and touch 2 / touch and stouch)
 ---@param title string
 ---@param styleOff Style Default style

@@ -3,21 +3,10 @@
 --- Any questions? Ask on:      Steam Workshop QUI/Examples     Discord: -soon-     Dm me on Discord    Ping me on #lua in Stormworks Discord server
 
 
---- TO DO : ENUM -> ALIAS
---- !!!!!!!!!!!!!
---- !!!!!!!!!!!!!!!
---- 
---- !
---- 
---- 
---- 
---- 
---- 
---- 
---- 
---- 
+---@diagnostic disable:lowercase-global
 
 ---@section REMOVE THIS BEFORE COMPILATION AFTER YOU FINISH YOUR PROJECT !!!!!!!!!!!
+
 
 ---@class NumberWithMass
 ---@field [1] number value
@@ -40,6 +29,7 @@ __Colors = { }
 ---@field Fore Color|Color[]
 ---@field Back Color
 ---@field Border Color|nil
+---@diagnostic disable-next-line
 ---@field Decoration TextStyles|TitleStyles|nil
 __Styles = { }
 
@@ -58,9 +48,9 @@ __Datas = { }
 
 
 
---- Fast debugging
+--- Fast debugging for IDE
 ---@param a any
-function DEBUG(a)
+function LOG(a)
 
     if type(a) == type({ }) then
         for k, v in pairs(a) do
@@ -85,18 +75,18 @@ end
 ---@section BASIC FUNCTIONS
 
 
-gn = input.getNumber
-gb = input.getBool
-sn = output.setNumber
-sb = output.setBool
-pn = property.getNumber
-pb = property.getBool
-pt = property.getText
+gn = input.getNumber    ---@diagnostic disable-line:undefined-global
+gb = input.getBool      ---@diagnostic disable-line:undefined-global
+sn = output.setNumber   ---@diagnostic disable-line:undefined-global
+sb = output.setBool     ---@diagnostic disable-line:undefined-global
+pn = property.getNumber ---@diagnostic disable-line:undefined-global
+pb = property.getBool   ---@diagnostic disable-line:undefined-global
+pt = property.getText   ---@diagnostic disable-line:undefined-global
 
-abs = math.abs
+
 floor = math.floor
-ceil = math.ceil
-sqrt = math.sqrt
+
+
 rad = math.rad
 deg = math.deg
 pi = math.pi
@@ -118,12 +108,7 @@ function cos(a)
 end
 
 
---- `math.tan`
----@param a number degrees
----@return number # tan
-function tg(a)
-    return math.tan(rad(a + 180))
-end
+
 
 
 --- `math.asin`
@@ -139,27 +124,6 @@ end
 ---@return number # degrees
 function acos(n)
     return deg(math.acos(n))
-end
-
-
---- `math.atan`
----@param n number
----@return number # degrees
-function atg(n, m)
-    return deg(math.atan(n, m))
-end
-
-
---- Gives information, if the number fits between `min` and `max`
----@param value number
----@param min number|nil? `Default = 0`
----@param max number|nil? `Default = 1`
----@return boolean
-function InSpan(value, min, max)
-    min = min or 0
-    max = max or 1
-
-    return value >= min and value <= max
 end
 
 
@@ -186,12 +150,7 @@ function ZeroOne(min, max, value)
 end
 
 
---- Returns the sign of the number (`1` or `-1`)
----@param n number
----@return number # 1 if `> 0`, -1 if `< 0`
-function sign(n)
-    return n < 0 and -1 or 1
-end
+
 
 
 --- It adds `newChar` to the `str` only, if `str` has a lenght smaller than `maxLen`
@@ -212,7 +171,7 @@ end
 ---@return number # Rounded number
 function round(num, decimals)
     if decimals then
-        return tonumber( string.format( "%." .. decimals .. "f", tostring(num)) )
+        return tonumber( string.format( "%." .. decimals .. "f", tostring(num)) ) --[[@as number]]
     end
 
     return floor(num + 0.5)
@@ -254,13 +213,7 @@ function avgm(...)
 end
 
 
---- Logical XOR
----@param a boolean
----@param b boolean
----@return boolean
-function xor(a, b)
-    return a ~= b
-end
+
 
 
 --- Adds to the provided table `base` properties of `dict`.
@@ -331,15 +284,19 @@ end
 
 ---@section MONITOR
 
----@type number, number
-WIDTH, HEIGHT = nil, nil
+---@type number Width of the monitor
+WIDTH = nil
+---@type number Height of the monitor
+HEIGHT = nil
 
----@type boolean, boolean
-Touching, Stouching = nil, nil
----@type number, number
-TouchX, TouchY = nil, nil
----@type number, number
-StouchX, StouchY = nil, nil
+
+---@type boolean Is user touching the monitor? (E or Q)
+Touching = nil
+
+---@type number X position of the touch
+TouchX = nil
+---@type number Y position of the touch
+TouchY = nil
 
 
 --- Checks, if user is Touching the monitor inside a provided rectangle of 2 points
@@ -350,42 +307,6 @@ StouchX, StouchY = nil, nil
 ---@return boolean # Is touch inside the box
 function IsInBox(x, y, x2, y2)
     return Touching and TouchX >= x and TouchX <= x2 and TouchY >= y and TouchY <= y2
-end
-
-
---- Checks, if user is Stouching (Touching second method) the monitor inside a provided rectangle of 2 points
----@param x number Point A
----@param y number Point A
----@param x2 number Point B
----@param y2 number Point B
----@return boolean # Is stouch inside the box
-function IsInBox2(x, y, x2, y2)
-    return Stouching and StouchX >= x and StouchX <= x2 and StouchY >= y and StouchY <= y2
-end
-
-
---- Returns a position of the object, so it can be centered in a plane between `x1` and `x2`
---- - Example: `Center(1, 10, 2)` -> 6.5 -- the object will be in the center.
----@param x1 number Left/Top
----@param x2 number Right/Bottom
----@param length number Length of the object
----@return number # Center coordinates
-function Center(x1, x2, length)
-    return avg(x1, x2) - length / 2
-end
-
-
---- Returns a position in the center of the box.
----@param x1 number Point A
----@param y1 number Point A
----@param x2 number Point B
----@param y2 number Point B
----@param width number Width of the object
----@param height number Height of the object
----@return number # Center of X
----@return number # Center of Y
-function Center2D(x1, y1, x2, y2, width, height)
-    return Center(x1, x2, width), Center(y1, y2, height)
 end
 
 
@@ -474,7 +395,6 @@ function Color(r, g, b, a)
 end
 
 
-
 TRANS = Color(0, 0, 0, 0)
 WHITE = Color(255, 255, 255)
 BLACK = Color()
@@ -514,7 +434,7 @@ end
 ---@param color Color|nil? `Default = Foreground`
 function SetColor(color)
     color = color or Foreground
-    screen.setColor(color.R, color.G, color.B, color.A)
+    screen.setColor(color.R, color.G, color.B, color.A)     ---@diagnostic disable-line:undefined-global
 end
 
 
@@ -522,19 +442,13 @@ end
 ---@param toColor Color|nil? `Default = Background`
 function Clear(toColor)
     SetColor(toColor or Background)
-    screen.drawClear()
+    screen.drawClear()      ---@diagnostic disable-line:undefined-global
 end
 
 
 ---@alias TextStyle
----| 'u' # Underline
----| 's' # Strike
-
----@enum TitleStyle
-EnumTitleStyles = {
-    Simple = 0,
-    Fancy = 1
-}
+---| 'u' # Text: Underline
+---| 's' # Text: Strike
 
 
 
@@ -542,7 +456,8 @@ EnumTitleStyles = {
 ---@param fore Color|Color[]|nil? Color or gradient `Default = Foreground`
 ---@param back Color|nil? Background color `Default = Background`
 ---@param border Color|nil? Border color `Default = no border`
----@param decor TextStyle|TitleStyle? Text decoration `Default = no decoration`
+---@diagnostic disable-next-line:undefined-doc-class
+---@param decor TextStyle|TitleStyle? Text decoration `Default = no decoration`. TitleStyle requires "Formatted texts.lua"
 ---@return Style
 function Style(fore, back, border, decor)
     return {
@@ -585,7 +500,7 @@ Objects = { }
 ---@return Object # reference
 function PropertiesOf(idOrObject)
     if type(idOrObject) == type({ }) then
-        return idOrObject
+        return idOrObject --[[@as Object]]
     end
 
     return Objects[idOrObject]
@@ -607,12 +522,11 @@ end
 
 
 
-
 ---@type function[] Templates' behaviours
 Templates = {
     ["Line"] = function (x, y, obj)
         SetColor(obj.Color)
-        screen.drawLine(x, y, obj.X + x, obj.Y + y)
+        screen.drawLine(x, y, obj.X + x, obj.Y + y)     ---@diagnostic disable-line:undefined-global
     end,
     ["TrigLine"] = function (x, y, obj)
         DrawLine(x, y, x + obj.R * cos(obj.Angle), y + obj.R * sin(obj.Angle), obj.Color)
@@ -622,9 +536,9 @@ Templates = {
     end,
     ["Box"] = function (x, y, obj)
         SetColor(obj.Style.Back)
-        screen.drawRectF(x, y, obj.Width, obj.Height)
+        screen.drawRectF(x, y, obj.Width, obj.Height)   ---@diagnostic disable-line:undefined-global
         SetColor(obj.Style.Border or TRANS)
-        screen.drawRect(x, y, obj.Width, obj.Height)
+        screen.drawRect(x, y, obj.Width, obj.Height)    ---@diagnostic disable-line:undefined-global
     end,
     ["Triangle"] = function (x, y, obj)
         local function coords()
@@ -632,19 +546,19 @@ Templates = {
         end
 
         SetColor(obj.Style.Back)
-        screen.drawTriangleF(coords())
+        screen.drawTriangleF(coords())      ---@diagnostic disable-line:undefined-global
         SetColor(obj.Style.Border or TRANS)
-        screen.drawTriangle(coords())
+        screen.drawTriangle(coords())       ---@diagnostic disable-line:undefined-global
     end,
     ["Circle"] = function (x, y, obj)
         SetColor(obj.Style.Back)
-        screen.drawCircleF(x, y, obj.R)
+        screen.drawCircleF(x, y, obj.R)     ---@diagnostic disable-line:undefined-global
         SetColor(obj.Style.Border or TRANS)
-        screen.drawCircle(x, y, obj.R)
+        screen.drawCircle(x, y, obj.R)      ---@diagnostic disable-line:undefined-global
     end,
     ["Text"] = function (x, y, obj)
         SetColor(obj.Color)
-        screen.drawText(x, y, obj.Text)
+        screen.drawText(x, y, obj.Text)     ---@diagnostic disable-line:undefined-global
     end,
     ["StyledText"] = function (x, y, obj)
         local w = obj.Width or TextWidth(obj.Text)
@@ -668,13 +582,13 @@ Templates = {
         DrawBox(x, y, w + 1.5 * a - 1, h + 1.5 * a, obj.Style)
 
         SetColor(obj.Style.Fore)
-        screen.drawTextBox(x + a, y + a, w, h, obj.Text, 0, 0)
+        screen.drawTextBox(x + a, y + a, w, h, obj.Text, 0, 0)      ---@diagnostic disable-line:undefined-global
 
-        if obj.Style.Decor == EnumTextStyles.Underline then
+        if obj.Style.Decor == 'u' then
 
             DrawTrigLine(x, y + h - 2, 0, w, obj.Style.Fore)
 
-        elseif obj.Style.Decor == EnumTextStyles.Strike then
+        elseif obj.Style.Decor == 's' then
 
             for i = 1, ln do
                 DrawTrigLine(x, y + 2 + 6 * (i - 1), 0, w, obj.Style.Fore)
@@ -926,9 +840,9 @@ end
 ---@param cx number Point C
 ---@param cy number Point C
 ---@param style Style
-function DrawTriangle(x1, y1, x2, y2, x3, y3, style)
+function DrawTriangle(ax, ay, bx, by, cx, cy, style)
     Draw(0, 0,
-        Triangle(x1, y1, x2, y2, x3, y3, style, true)
+        Triangle(ax, ay, bx, by, cx, cy, style, true)
     )
 end
 
@@ -1053,11 +967,12 @@ function Update() end
 --================= USER ===================
 
 function onTick()
-    WIDTH, HEIGHT = gn(1), gn(2)
+    WIDTH = gn(1)
+    HEIGHT = gn(2)
 
-    Touching, Stouching = gb(1), gb(2)
-    TouchX, TouchY = gn(3), gn(4)
-    StouchX, StouchY = gn(5), gn(6)
+    Touching = gb(1)
+    TouchX = gn(3)
+    TouchY = gn(4)
 
     -- if you don't have "Time" module - you can remove this
     Update()

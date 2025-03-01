@@ -9,10 +9,15 @@ PushDict(Templates, {
             _Data[id] = { FuncOn = false, PrevClick = false }
         end
 
+        ---@type CheckBoxMethod
+        obj.Method = obj.Method or 0
+
         -- is active
-        if obj.Method == EnumCheckBoxMethod.ExternalInput then
+        -- ExternalInput
+        if obj.Method == 0 then
             _Data[id].Value = gb(obj.ID)
-        elseif obj.Method == EnumCheckBoxMethod.Variable then
+        -- Variable
+        elseif obj.Method == 1 then
             _Data[id].Value = obj.ID -- as variable
         else -- User click
             if IsInBox(x, y, obj.Width, obj.Height) then
@@ -39,15 +44,10 @@ PushDict(Templates, {
 })
 
 
----@enum CheckBoxMethod
-EnumCheckBoxMethod = {
-    -- CheckBox is readonly. It's state is the same as Boolean Channel Input
-    ExternalInput = 0,
-    -- CheckBox is readonly. It's state is the same as a given variable/value
-    Variable = 2,
-    -- CheckBox is mutable. The user decides of it's state.
-    UserClick = 3
-}
+---@alias CheckBoxMethod
+---| 0 # `ExternalInput` - CheckBox is readonly. It's state is the same as Boolean Channel Input.
+---| 1 # `Variable` - CheckBox is readonly. It's state is the same as a given variable/value.
+---| 3 # `UserClick` - CheckBox is mutable. The user decides of it's state.
 
 
 --- An advanced CheckBox. Just like HTML \<input type="checkbox">

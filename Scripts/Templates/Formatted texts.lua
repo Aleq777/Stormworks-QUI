@@ -10,7 +10,7 @@ PushDict(Templates, {
         DrawTrigLine(x, y, 270, 5, obj.Style.Border)
         DrawStyledText(x + 2, y, obj.Text, Style(obj.Style.Fore, obj.Style.Back), nil, 5)
 
-        if obj.Style.Decor == EnumTitleStyles.Fancy then
+        if obj.Style.Decor == 'f' then
             DrawBox(x + 4 + w, y, WIDTH - (x + 4 + w), 5, Style(nil, obj.Style.Border))
         end
     end,
@@ -28,6 +28,11 @@ PushDict(Templates, {
         -- mode depends
     end
 })
+
+
+---@alias TitleStyle
+---| 'i' # Title: Simple
+---| 'f' # Title: Fancy
 
 
 --- Styled title with width of the screen.
@@ -62,22 +67,15 @@ end
 
 
 -- REWORK !!! - time (12/24), stopwatch
----@enum ClockType
-EnumClockType = {
-    -- hh:mm - 00:00 - 12:59
-    HourMinute = 0,
-    -- hh:mm:ss - 00:00:00 - 12:59:59
-    HourMinuteSecond = 1,
-    -- hh:mm:ss.ms - 00:00:00.000 - 12:59:59.999
-    HourMinuteSecondMilis = 2,
-    -- hh:mm t - 00:00 AM - 12:59 PM
-    HourMinuteAMPM = 3,
-    -- hh:mm:ss t - 00:00:00 AM - 12:59:59 PM
-    HourMinuteSecondAMPM = 4,
-    HourMinute24 = 6,
-    HourMinuteSecond24 = 7,
-    HourMinuteSecondMilis24 = 8
-}
+---@alias ClockType
+---| 0 # Hour:Minute - 00:00 - 12:59
+---| 1 # Hour:Minute:Second - 00:00:00 - 12:59:59
+---| 2 # [24] Hour:Minute - 00:00 - 24:59
+---| 3 # [24] Hour:Minute:Second - 00:00:00 - 24:59:59
+---| 4 # [Stopwatch] Minute:Second - 00:00 - 99:59
+---| 5 # [Stopwatch] Minute:Second:Milisecond - 00:00.000 - 99:59.999
+---| 6 # [Stopwatch] Hour:Minute:Second - 00:00:00 - 99:59:59
+
 
 --- Simple digital clock
 ---@param timeMS integer Time in miliseconds (1h = 3.600.000)

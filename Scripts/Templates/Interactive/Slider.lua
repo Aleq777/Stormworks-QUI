@@ -3,6 +3,10 @@
 
 -- REWORK !!!
 
+
+---@diagnostic disable:duplicate-doc-alias
+
+
 -- See "OPTIMISE_ME.md" for optimising code below
 PushDict(Templates, {
     ["Slider"] = function (x, y, obj, id)
@@ -69,12 +73,16 @@ PushDict(Templates, {
             local prop = PropertiesOf(obj.SliderObj)
 
             if obj.Direction == EnumBarDirection.Right then
+                ---@diagnostic disable-next-line:undefined-field
                 Draw(x + v * obj.Width - prop.Width / 2, y - prop.Height / 2, prop) -- obj.Width is the width of the funny bar line, prop.Width is the width of the SliderObj like a pointer or smth
             elseif obj.Direction == EnumBarDirection.Down then
+                ---@diagnostic disable-next-line:undefined-field
                 Draw(x - prop.Width / 2, y + v * obj.Height - prop.Height / 2, prop)
             elseif obj.Direction == EnumBarDirection.Left then
+                ---@diagnostic disable-next-line:undefined-field
                 Draw(x - obj.Width * (1 - v) - prop.Width / 2, y - prop.Height / 2, prop)
             else
+                ---@diagnostic disable-next-line:undefined-field
                 Draw(x - prop.Width / 2, y + obj.Height * (1 - v) - prop.Height / 2, prop)
             end
 

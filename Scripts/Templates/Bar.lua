@@ -1,6 +1,9 @@
 -- QUI 2 Gauges and Sliders
 --- REQUIRED: "Base.lua"
 
+---@diagnostic disable:duplicate-doc-alias
+
+
 -- See "OPTIMISE_ME.md" for optimising code below
 PushDict(Templates, {
     ["Bar"] = function (x, y, obj)
@@ -29,13 +32,11 @@ PushDict(Templates, {
 })
 
 
----@enum BarDirection
-EnumBarDirection = {
-    Up = 0,
-    Right = 1,
-    Down = 2,
-    Left = 3
-}
+---@alias BarDirection
+---| 0 # Up
+---| 1 # Right
+---| 2 # Down
+---| 3 # Left
 
 
 --- A bar. Works like a gauge.

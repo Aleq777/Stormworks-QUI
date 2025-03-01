@@ -17,7 +17,11 @@ PushDict(Templates, {
 
         local touch = IsInBox(x + 1, y + 1, obj.Width + x - 1, obj.Height + y - 1) -- borders are unclickable
 
-        if obj.Mode == EnumButtonModes.Pulse then
+        ---@type ButtonMode
+        obj.Mode = obj.Mode or 0
+
+        -- Pulse
+        if obj.Mode == 1 then
 
             if touch then
 
@@ -38,7 +42,7 @@ PushDict(Templates, {
 
             end
 
-        elseif obj.Mode == EnumButtonModes.Toggle then
+        elseif obj.Mode == 2 then -- Toggle
 
             if touch then
 
@@ -76,15 +80,10 @@ PushDict(Templates, {
 })
 
 
----@enum ButtonMode
-EnumButtonMode = {
-    -- Default. When you hold, function is active.
-    Push = 0,
-    -- When you hold, function is called once till you release and press again.
-    Pulse = 1,
-    -- When you hold, state of the button is toggled and repeats the function or stops it.
-    Toggle = 2
-}
+---@alias ButtonMode
+---| 0 # `Push`. Default. When you hold, function is active.
+---| 1 # `Pulse`. When you hold, function is called once till you release and press again.
+---| 2 # `Toggle`. When you hold, state of the button is toggled and repeats the function or stops it.
 
 
 --- Interactive text button, which interacts only with the Touch 1 (E or Q)

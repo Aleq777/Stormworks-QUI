@@ -55,7 +55,8 @@ PushDict(Templates, {
                     obj.StyleOff,
                     obj.Width,
                     obj.Height,
-                    EnumButtonMode.Pulse,
+                    ---@type ButtonMode
+                    1, -- Pulse
                     function ()
                         _Data[id].FuncOn = v.Value
                         _Data[id].Active = false

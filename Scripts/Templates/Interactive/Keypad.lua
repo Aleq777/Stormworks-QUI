@@ -6,10 +6,6 @@
 PushDict(Templates, {
     ["KeyPad"] = function (x, y, obj, id)
 
-        if obj.Mode == EnumKeyPadMode.ForInput then
-            id = nil
-        end
-
         -- register
         if id and not _Data[id] then
             _Data[id] = {
@@ -43,7 +39,7 @@ PushDict(Templates, {
                     obj.StyleOn,
                     nil,
                     nil,
-                    EnumButtonMode.Pulse,
+                    1, -- Pulse
                     func,
                     id
                 )
@@ -59,16 +55,10 @@ PushDict(Templates, {
 })
 
 
----@enum KeyPadMode
-EnumKeyPadMode = {
-    -- It's for the `Input` object. REQUIRES "Templates/Input.lua"
-    -- Default
-    ForInput = 0,
-    -- Creates a new Data. Requires `id` parameter. You can get the value by GetData()
-    ForData = 1,
-    -- Requires `id` parameter as the table. The value at 1 (`table[1]`) will be updated by reference
-    ForTable = 2
-}
+---@alias KeyPadMode
+---| 0 # `ForInput` - It's for the `Input` object. REQUIRES "Templates/Input.lua"
+---| 1 # `ForData` - Creates a new Data. Requires `id` parameter. You can get the value by GetData()
+---| 2 # `ForTable` - Requires `id` parameter as the table. The value at 1 (`table[1]`) will be updated by reference
 
 
 --- An advanced keypad for monitor.
@@ -81,11 +71,12 @@ EnumKeyPadMode = {
 function KeyPad(keyData, mode, styleOff, styleOn, isAnon)
     local f
 
-    if mode == EnumKeyPadMode.ForData then
+    -- ForData
+    if mode == 1 then
         f = function (id)
             _Data[id].Value = ""
         end
-    elseif mode == EnumKeyPadMode.ForTable then
+    elseif mode == 2 then -- ForTable
         f = function (table)
             table[1] = ""
         end
