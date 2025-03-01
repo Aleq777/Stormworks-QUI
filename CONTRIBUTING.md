@@ -217,3 +217,5 @@ Example:
 ---@module 'Extensions/Second Touch' REQUIRED
 ---@module 'Community Extensions/Multi Touch' REQUIRED IF you want to use `MultiTouch` function
 ```
+
+4. 
