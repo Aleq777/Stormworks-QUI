@@ -1,9 +1,20 @@
 --- QUI 2.0
---- Author: Aleq777     Discord: aleq777    Steam: Aleq777
---- Any questions? Ask on:      Steam Workshop QUI/Examples     Discord: -soon-     Dm me on Discord    Ping me on #lua in Stormworks Discord server
+--- Author: @Aleq777
+---     Discord:    aleq777
+---     Steam:      Aleq777
+--- Any questions? Ask on:
+---     Discord QUI Server: -soon-
+---     Steam Workshop QUI/Examples
+---     Ping me on #lua in Stormworks Discord server https://discord.gg/stormworks
+---     Dm me on Discord - aleq777
+
+---@see README.md !!!
+
 
 
 ---@diagnostic disable:lowercase-global
+
+
 
 ---@section REMOVE THIS BEFORE COMPILATION AFTER YOU FINISH YOUR PROJECT !!!!!!!!!!!
 
@@ -13,8 +24,6 @@
 ---@field [2] number mass
 __NumberWithMasses = { }
 
----@class void
-__voids = { }
 
 ---@class Color
 ---@field R number
@@ -66,7 +75,7 @@ end
 
 
 
----@endsection
+---@endsection Stop removing here
 
 
 
@@ -85,8 +94,6 @@ pt = property.getText   ---@diagnostic disable-line:undefined-global
 
 
 floor = math.floor
-
-
 rad = math.rad
 deg = math.deg
 pi = math.pi
@@ -95,6 +102,7 @@ pi = math.pi
 --- `math.sin`
 ---@param a number degrees
 ---@return number # sin
+---@nodiscard
 function sin(a)
     return math.sin(rad(a))
 end
@@ -103,17 +111,16 @@ end
 --- `math.cos`
 ---@param a number degrees
 ---@return number # cos
+---@nodiscard
 function cos(a)
     return math.cos(rad(a))
 end
 
 
-
-
-
 --- `math.asin`
 ---@param n number
 ---@return number # degrees
+---@nodiscard
 function asin(n)
     return deg(math.asin(n))
 end
@@ -122,6 +129,7 @@ end
 --- `math.acos`
 ---@param n number
 ---@return number # degrees
+---@nodiscard
 function acos(n)
     return deg(math.acos(n))
 end
@@ -132,6 +140,7 @@ end
 ---@param min number|nil? `default = 0`
 ---@param max number|nil? `default = 1`
 ---@return number # returns the `num` or `min`/`max`
+---@nodiscard
 function clamp(num, min, max)
     min = min or 0
     max = max or 1
@@ -145,6 +154,7 @@ end
 ---@param max number Maximal value of the `value`
 ---@param value number Number between the `min` and `max`
 ---@return number # value 0-1
+---@nodiscard
 function ZeroOne(min, max, value)
     return clamp((value - min) / (max - min))
 end
@@ -158,6 +168,7 @@ end
 ---@param str string The base string
 ---@param newChar string Character to add to `str`
 ---@return string # A modified string which won't be longer than `maxLen`
+---@nodiscard
 function sclamp(str, maxLen, newChar)
     return #str + 1 > maxLen and str or str .. newChar
 end
@@ -169,6 +180,7 @@ end
 ---@param num number
 ---@param decimals number|nil? If it's `nil`, it only returns the perfectly rounded number, else it returns number rounded to the decimal point.
 ---@return number # Rounded number
+---@nodiscard
 function round(num, decimals)
     if decimals then
         return tonumber( string.format( "%." .. decimals .. "f", tostring(num)) ) --[[@as number]]
@@ -181,6 +193,7 @@ end
 --- Returns a mathematical average of the numbers
 ---@param ... number
 ---@return number # Average of numbers
+---@nodiscard
 function avg(...)
     local t, sum = table.pack(...), 0
 
@@ -199,6 +212,7 @@ end
 --- Write every elements as a table of 2 elements: `[number, mass]`
 ---@param ... NumberWithMass
 ---@return number # Arithmetical average
+---@nodiscard
 function avgm(...)
     local sum, div = 0, 0
 
@@ -235,6 +249,7 @@ end
 ---@param minLen number
 ---@param prefix string Must be 1 char
 ---@return string
+---@nodiscard
 function FillPrefix(value, minLen, prefix)
     value = tostring(value)
 
@@ -249,6 +264,7 @@ end
 --- Converts a string to a table
 ---@param str string
 ---@return table
+---@nodiscard
 function totable(str)
     local result = { }
     for i = 1, #str do
@@ -263,6 +279,7 @@ end
 ---@param arr table
 ---@param value any
 ---@return any # The index in the `arr`
+---@nodiscard
 function IndexOf(arr, value)
     for k, v in pairs(arr) do
         if v == value then
@@ -305,6 +322,7 @@ TouchY = nil
 ---@param x2 number Point B
 ---@param y2 number Point B
 ---@return boolean # Is touch inside the box
+---@nodiscard
 function IsInBox(x, y, x2, y2)
     return Touching and TouchX >= x and TouchX <= x2 and TouchY >= y and TouchY <= y2
 end
@@ -314,6 +332,7 @@ end
 ---@param text string
 ---@return number # pixels
 ---@return number # columns
+---@nodiscard
 function TextWidth(text)
     local widths, index = { 0 }, 1
 
@@ -345,6 +364,7 @@ end
 ---@param maxWidth number|nil? pixels. `Default = no limit` - limit of the width of the text
 ---@return number pixels
 ---@return number columns
+---@nodiscard
 function TextHeight(text, maxWidth)
     if not maxWidth then
         maxWidth = TextWidth(text)
@@ -385,6 +405,7 @@ end
 ---@param b number|nil? Blue (`Default = 0`)
 ---@param a number|nil? Alpha (`Default = 255`)
 ---@return Color
+---@nodiscard
 function Color(r, g, b, a)
     return {
         R = r or 0,
@@ -446,10 +467,12 @@ function Clear(toColor)
 end
 
 
+
+
+
 ---@alias TextStyle
 ---| 'u' # Text: Underline
 ---| 's' # Text: Strike
-
 
 
 --- Returns Style
@@ -459,6 +482,7 @@ end
 ---@diagnostic disable-next-line:undefined-doc-class
 ---@param decor TextStyle|TitleStyle? Text decoration `Default = no decoration`. TitleStyle requires "Formatted texts.lua"
 ---@return Style
+---@nodiscard
 function Style(fore, back, border, decor)
     return {
         Fore = fore or Foreground,
@@ -467,6 +491,9 @@ function Style(fore, back, border, decor)
         Decor = decor
     }
 end
+
+
+
 
 
 --- Perfect for debugging and error making
@@ -486,9 +513,10 @@ end
 
 
 ---@section Object
---- Template - type of object with defined (but not set) properties and behaviour (like a class)
---- Object - An instance of Template which has defined and set properties (like object of a class)
---- Spirit - Spawned object on the monitor. "Index and Layers" module will use this term. Here it's not used.
+--- Definition Reminder:
+---     Template - type of object with defined (but not set) properties and behaviour (like a class)
+---     Object - An instance of Template which has defined and set properties (like object of a class)
+---     Spirit - Spawned object on the monitor. "Index and Layers" module will use this term. Here it's not used.
 
 
 ---@type Object[] List of objects (template instances) - can be spawned multiple times later
@@ -498,6 +526,7 @@ Objects = { }
 --- Returns a REFERENCE to the Object. Best for changing or getting properties.
 ---@param idOrObject number|Object ID of the Object in `Objects` or actual anonymous Object
 ---@return Object # reference
+---@nodiscard
 function PropertiesOf(idOrObject)
     if type(idOrObject) == type({ }) then
         return idOrObject --[[@as Object]]
@@ -510,6 +539,7 @@ end
 --- Returns a COPY BY VALUE of the Object. Best for creating an anonymous object (copy) with different properties.
 ---@param idOrObject number ID of the Object in `Objects`
 ---@return Object # value
+---@nodiscard
 function GetCopy(idOrObject)
     local result, ref = { }, Objects[idOrObject]
 
@@ -622,6 +652,7 @@ end
 ---@param dict table Table of properties and functions
 ---@param isAnon boolean|nil? Decides, if it puts the object in `Objects` and returns a reference to it, or return the object itself (anonymous). <br> `Default = false`
 ---@return number|Object # The anonymous object or number as a reference to the `Objects`
+---@nodiscard
 function Object(typeof, dict, isAnon)
     local result = { Type = typeof }
     PushDict(result, dict)
@@ -657,6 +688,7 @@ end
 ---@param color Color|nil? Color. Gradients are available in "Gradient" module
 ---@param isAnon boolean|nil? Anonymous object = you will use it once
 ---@return number|Object
+---@nodiscard
 function Line(x, y, color, isAnon)
     return Object("Line", {
         X = x,
@@ -672,6 +704,7 @@ end
 ---@param color Color|nil? Color. Gradients are available in "Gradient" module
 ---@param isAnon boolean|nil? Anonymous object = you will use it once
 ---@return number|Object
+---@nodiscard
 function TrigLine(angle, r, color, isAnon)
     return Object("TrigLine", {
         Angle = angle,
@@ -685,6 +718,7 @@ end
 ---@param color Color|nil?
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function Dot(color, isAnon)
     return Object("Dot", {
         Color = color
@@ -698,6 +732,7 @@ end
 ---@param style Style
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function Box(width, height, style, isAnon)
     return Object("Box", {
         Width = width,
@@ -717,6 +752,7 @@ end
 ---@param style Style
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function Triangle(ax, ay, bx, by, cx, cy, style, isAnon)
     return Object("Triangle", {
         Ax = ax, Ay = ay,
@@ -732,6 +768,7 @@ end
 ---@param style Style
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function Circle(r, style, isAnon)
     return Object("Circle", {
         R = r,
@@ -745,6 +782,7 @@ end
 ---@param color Color|nil? Color of the text
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function Text(text, color, isAnon)
     return Object("Text", {
         Text = text,
@@ -760,6 +798,7 @@ end
 ---@param height number|nil? `Default = no limit`
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function StyledText(text, style, width, height, isAnon)
     local w = TextWidth(text)
     return Object("StyledText", {
@@ -905,6 +944,7 @@ _Data = { }
 --- Get the value of interactive element
 ---@param id any ID of interactive data
 ---@return any
+---@nodiscard
 function GetData(id)
     if not _Data[id] then return nil end
 
@@ -956,7 +996,10 @@ end
 ---@section TIME
 
 
---- Updates the `ToUpdate` list every tick. If you need this (interactive data, vectors etc), then look for "Time" module.
+--- Updates every tick, at the end of `onTick` function (there you should place this function).<br>
+--- Everything that has been added with `AddUpdate` function, will be updated.
+---@see Time module. It's required, if you want to use this function
+---@module 'Extensions.Time'
 function Update() end
 
 
@@ -965,6 +1008,11 @@ function Update() end
 
 
 --================= USER ===================
+
+---@see Write your code here.
+
+
+
 
 function onTick()
     WIDTH = gn(1)
@@ -977,6 +1025,7 @@ function onTick()
     -- if you don't have "Time" module - you can remove this
     Update()
 end
+
 
 function onDraw()
 
