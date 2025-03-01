@@ -1,9 +1,13 @@
--- QUI 2 Button
---- REQUIRED: "Base.lua"
+--- QUI 2
+--- Official Template: Button
+--- Author: @Aleq777
+--- Includes:
+---     Button - a button that user can press. It can be push, pulse or toggle.
+---@module 'Base' REQUIRED
 
 --- REWORK !!!
 
--- See "OPTIMISE_ME.md" for optimising code below
+---@see OPTIMISE_ME.md
 PushDict(Templates, {
     ["Button"] = function (x, y, obj, id)
         if not _Data[id] then
@@ -97,6 +101,7 @@ PushDict(Templates, {
 ---@param args table|nil? Arguments for the function. Leave nil or empty table, if none
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function Button(title, styleOff, styleOn, width, height, mode, func, args, isAnon)
     return Object("Button", {
         Text = title,

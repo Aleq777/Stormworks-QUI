@@ -1,7 +1,14 @@
--- QUI 2 Circles
---- REQUIRED: "Base.lua"
+--- QUI 2
+--- Official Template: Better circles
+--- Author: @Aleq777 (functions' source code found on Stormworks Discord: https://discord.com/channels/357480372084408322/578586360336875520/1330820179650678885)
+--- Includes:
+---     BreCircle - Bresenham circle algorithm
+---     TrigCircle - Trigonometric circle algorithm
+---@module 'Base' REQUIRED
+
 
 --- Function used for BreCircle
+---@package
 ---@param xc number Position of center
 ---@param yc number Position of center
 ---@param x number
@@ -23,7 +30,7 @@ local function _drawCircle(xc, yc, x, y, color)
     SetBack(b)
 end
 
--- See "OPTIMISE_ME.md" for optimising code below
+---@see OPTIMISE_ME.md
 PushDict(Templates, {
     ["BreCircle"] = function (x, y, obj)
         local ax, ay, d = 0, obj.R, 3 - 2 * obj.R
@@ -54,6 +61,7 @@ PushDict(Templates, {
 ---@param color Color|nil? Border color `Default = Foreground`
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function BreCircle(r, color, isAnon)
     return Object("BreCircle", {
         R = r,
@@ -68,6 +76,7 @@ end
 ---@param color Color|nil? Border color `Default = Foregorund`
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function TrigCircle(r, segments, color, isAnon)
     return Object("TrigCircle", {
         R = r,

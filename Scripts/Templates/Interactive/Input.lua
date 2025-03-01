@@ -1,11 +1,19 @@
--- QUI 2 Input and Checkbox
---- REQUIRED: "Base.lua"
+--- QUI 2
+--- Official Template: Input
+--- Author: @Aleq777
+--- Includes:
+---     Input - an number displayed input. Works well with `KeyPad`
+---@module 'Base' REQUIRED
+---@module 'Templates.Interactive.Keypad' REQUIRED IF you want to use `KeyPadID`
 
--- See "OPTIMISE_ME.md" for optimising code below
+---@see OPTIMISE_ME.md
 PushDict(Templates, {
     ["Input"] = function (x, y, obj, id)
 
-        local isExternal, active = obj.Method == EnumInputMethod.ExternalInput, nil
+        ---@type InputMethod
+        obj.Method = obj.Method or 0
+
+        local isExternal, active = obj.Method == 0, nil
 
         -- is active
         if isExternal then
@@ -47,14 +55,9 @@ PushDict(Templates, {
 ActiveInputID = nil
 
 
----@enum InputMethod
-EnumInputMethod = {
-    -- Number Channel Input
-    ExternalInput = 0,
-    -- REQUIRED: "Templates/KeyPad.lua"
-    -- Best to use with digital KeyPad
-    KeyPadID = 1,
-}
+---@alias InputMethod
+---| 0 # `ExternalInput` - Number Channel Input
+---| 1 # `KeyPadID` - Best to use with digital KeyPad. Required Keypad.lua
 
 
 -- REWORK !!! - use sclamp !!!
@@ -67,6 +70,7 @@ EnumInputMethod = {
 ---@param channelOrId number|any # <ul> <li>`ExternalInput` -> Number Channel Input</li> <li>`KeyPadID` -> ID of the KeyPad data</li> </ul>
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function Input(charSize, styleOff, styleOn, method, channelOrId, isAnon)
     return Object("Input", {
         Size = charSize,

@@ -1,5 +1,9 @@
--- QUI 2 Second Interactive
---- REQUIRED: "Base.lua"
+--- QUI 2
+--- Official Template: Switch
+--- Author: @Aleq777
+--- Includes:
+---     Switch - a special type of button. By Touching (E or Q), you increase it's value. By Stouching (E and Q), you decrease it's value.
+---@module 'Base' REQUIRED
 
 
 ---@section REMOVE THIS BEFORE COMPILATION
@@ -10,11 +14,11 @@
 ---@field Value any
 __SwitchStates = { }
 
----@endsection
+---@endsection Finish removing here
 
 -- REWORK!! DISCORD CZY COŚ OPISAŁEM CO ZMIENIĆ
 
--- See "OPTIMISE_ME.md" for optimising code below
+---@see OPTIMISE_ME.md
 PushDict(Templates, {
     ["Switch"] = function (x, y, obj, id)
 
@@ -70,11 +74,12 @@ PushDict(Templates, {
 })
 
 
----comment
+--- Returns one of many possible switch states
 ---@param label string
 ---@param style Style
 ---@param value any
 ---@return SwitchState
+---@nodiscard
 function SwitchState(label, style, value)
     return {
         Text = label or value,
@@ -90,6 +95,7 @@ end
 ---@param switchContent SwitchState[]
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function Switch(width, height, switchContent, isAnon)
     return Object("Switch", {
         Width = width, Height = height,

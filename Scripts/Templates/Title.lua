@@ -1,5 +1,5 @@
 --- QUI 2
---- Official Template: Formatted Texts
+--- Official Template: Title
 --- Author: @Aleq777
 --- Includes:
 ---     Title - Perfect for sectioning your UI

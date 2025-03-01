@@ -1,5 +1,12 @@
--- QUI 2 Selector like <select> in HTML
---- REQUIRED: "Base.lua"
+--- QUI 2
+--- Official Template: Selector
+--- Author: @Aleq777
+--- Includes:
+---     Selector - Just like HTML <select>. After pressing, a list of values shows and user can change it.
+---@module 'Base' REQUIRED
+---@module 'Templates.Interactive.Button' REQUIRED
+
+
 
 ---@section REMOVE THIS BEFORE COMPILATION
 
@@ -8,9 +15,13 @@
 ---@field Value any
 ___SelectorComponents = { }
 
----@endsection
+---@endsection Finish removing here
 
--- See "OPTIMISE_ME.md" for optimising code below
+
+
+
+
+---@see OPTIMISE_ME.md
 PushDict(Templates, {
     ["Selector"] = function (x, y, obj, id)
 
@@ -88,6 +99,7 @@ PushDict(Templates, {
 ---@param label string
 ---@param value any
 ---@return SelectorComponent
+---@nodiscard
 function SelectorComponent(label, value)
     return {
         Text = label,
@@ -105,6 +117,7 @@ end
 ---@param height number|nil? Leave nil for auto-size
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function Selector(content, styleOff, styleOn, width, height, isAnon)
     return Object("Selector", {
         Content = content or {

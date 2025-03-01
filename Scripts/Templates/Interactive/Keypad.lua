@@ -1,10 +1,16 @@
--- QUI 2 KeyPad
---- REQUIRED: "Base.lua", "Templates/Button.lua"
---- POSSIBLY REQUIRED: "Templates/Input.lua"
+--- QUI 2
+--- Official Template: KeyPad
+--- Author: @Aleq777
+--- Includes:
+---     Keypad - A digital keypad, defaultly containing characters: 0-9, '.' and 'C' for clear function
+---@module 'Base' REQUIRED
+---@module 'Templates.Interactive.Input' REQUIRED IF you will use `ForInput`
 
--- See "OPTIMISE_ME.md" for optimising code below
+
+
+---@see OPTIMISE_ME.md
 PushDict(Templates, {
-    ["KeyPad"] = function (x, y, obj, id)
+    ["Keypad"] = function (x, y, obj, id)
 
         -- register
         if id and not _Data[id] then
@@ -39,6 +45,7 @@ PushDict(Templates, {
                     obj.StyleOn,
                     nil,
                     nil,
+                    ---@type ButtonMode
                     1, -- Pulse
                     func,
                     id
@@ -55,7 +62,7 @@ PushDict(Templates, {
 })
 
 
----@alias KeyPadMode
+---@alias KeypadMode
 ---| 0 # `ForInput` - It's for the `Input` object. REQUIRES "Templates/Input.lua"
 ---| 1 # `ForData` - Creates a new Data. Requires `id` parameter. You can get the value by GetData()
 ---| 2 # `ForTable` - Requires `id` parameter as the table. The value at 1 (`table[1]`) will be updated by reference
@@ -63,12 +70,13 @@ PushDict(Templates, {
 
 --- An advanced keypad for monitor.
 ---@param keyData table<table> First dimension defines rows. Second defines each button. Index (k) is what will be displayed. Value (v) is what will be added to the value/data/input
----@param mode KeyPadMode
+---@param mode KeypadMode
 ---@param styleOff Style Default style of buttons
 ---@param styleOn Style Style for pressed buttons
 ---@param isAnon boolean|nil?
 ---@return number|Object
-function KeyPad(keyData, mode, styleOff, styleOn, isAnon)
+---@nodiscard
+function Keypad(keyData, mode, styleOff, styleOn, isAnon)
     local f
 
     -- ForData
@@ -86,7 +94,7 @@ function KeyPad(keyData, mode, styleOff, styleOn, isAnon)
         end
     end
 
-    return Object("KeyPad", {
+    return Object("Keypad", {
         StyleOff = styleOff, StyleOn = styleOn,
         Mode = mode,
         KeyData = keyData or {
@@ -112,11 +120,11 @@ end
 ---@param x number Position
 ---@param y number Position
 ---@param keyData table<table> First dimension defines rows. Second defines each button. Index (k) is what will be displayed. Value (v) is what will be added to the value/data/input
----@param mode KeyPadMode
+---@param mode KeypadMode
 ---@param styleOff Style Default style of buttons
 ---@param styleOn Style Style for pressed buttons
 function DrawKeyPad(x, y, keyData, mode, styleOff, styleOn)
     Draw(x, y,
-        KeyPad(keyData, mode, styleOff, styleOn, true)
+        Keypad(keyData, mode, styleOff, styleOn, true)
     )
 end

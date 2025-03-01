@@ -1,5 +1,9 @@
--- QUI 2 Second Interactive
---- REQUIRED: "Base.lua"
+--- QUI 2
+--- Official Template: SButton
+--- Author: @Aleq777
+--- Includes:
+---     SButton - An improved button, that now is compatible with both: Touching and Stouching (one or two keys pressed).
+---@module 'Base' REQUIRED
 
 -- See "OPTIMISE_ME.md" for optimising code below
 PushDict(Templates, {
@@ -27,6 +31,7 @@ PushDict(Templates, {
 ---@param args2 table|nil Arguments
 ---@param isAnon boolean|nil?
 ---@return number|Object
+---@nodiscard
 function SButton(title, styleOff, style1, style2, width, height, mode, separateFunctions, func1, args1, func2, args2, isAnon)
     return Object("SButton", {
         Text = title,
@@ -37,6 +42,7 @@ function SButton(title, styleOff, style1, style2, width, height, mode, separateF
         Func2 = func2, Args2 = args2
     }, isAnon)
 end
+
 
 --- Draw an advanced button that works with both touches (touch 1 and touch 2 / touch and stouch)
 ---@param x number Position

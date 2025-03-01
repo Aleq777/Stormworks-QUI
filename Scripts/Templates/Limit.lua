@@ -1,5 +1,5 @@
 --- QUI 2
---- Official Template: Formatted Texts
+--- Official Template: Limit
 --- Author: @Aleq777
 --- Includes:
 ---     Limit - Simple limit "x/y", which you may need for speed etc.
@@ -34,8 +34,8 @@ PushDict(Templates, {
 ---@nodiscard
 function Limit(value1, value2, isActive, style1, style2, styleActive, isAnon)
     return Object("Limit", {
-        Value1 = value1, Value2 = value2, IsActive = isActive,
-        Style1 = style1, Style2 = style2, StyleActive = styleActive
+        Value1 = value1,    Value2 = value2,   IsActive = isActive,
+        Style1 = style1,    Style2 = style2,   StyleActive = styleActive
     }, isAnon)
 end
 

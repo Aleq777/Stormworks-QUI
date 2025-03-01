@@ -1,15 +1,21 @@
--- QUI 2 Input and Checkbox
+--- QUI 2
+--- Official Template: Checkbox
+--- Author: @Aleq777
+--- Includes:
+---     Checkbox - Like HTML <select type="checkbox">. It's a square/rectangle, that can be checked by the user or other data.
+---@module 'Base' REQUIRED
 
--- See "OPTIMISE_ME.md" for optimising code below
+
+---@see OPTIMISE_ME.md
 PushDict(Templates, {
-    ["CheckBox"] = function (x, y, obj, id)
+    ["Checkbox"] = function (x, y, obj, id)
 
         -- is registered
         if not _Data[id] then
             _Data[id] = { FuncOn = false, PrevClick = false }
         end
 
-        ---@type CheckBoxMethod
+        ---@type CheckboxMethod
         obj.Method = obj.Method or 0
 
         -- is active
@@ -44,7 +50,7 @@ PushDict(Templates, {
 })
 
 
----@alias CheckBoxMethod
+---@alias CheckboxMethod
 ---| 0 # `ExternalInput` - CheckBox is readonly. It's state is the same as Boolean Channel Input.
 ---| 1 # `Variable` - CheckBox is readonly. It's state is the same as a given variable/value.
 ---| 3 # `UserClick` - CheckBox is mutable. The user decides of it's state.
@@ -57,12 +63,13 @@ PushDict(Templates, {
 ---@param height number|nil `Default = 9`
 ---@param styleOff Style Style of the unchecked checkbox
 ---@param styleOn Style Style of the checked checkbox
----@param method CheckBoxMethod `Default = UserClick` (propably what you want)
+---@param method CheckboxMethod `Default = UserClick` (propably what you want)
 ---@param channelOrIdOrVar number|any|boolean See `EnumCheckBoxMethod` comment
 ---@param isAnon boolean|nil?
 ---@return number|Object
-function CheckBox(charOn, charOff, width, height, styleOff, styleOn, method, channelOrIdOrVar, isAnon)
-    return Object("CheckBox", {
+---@nodiscard
+function Checkbox(charOn, charOff, width, height, styleOff, styleOn, method, channelOrIdOrVar, isAnon)
+    return Object("Checkbox", {
         CharOn = charOn or ' ', CharOff = charOff or ' ',
         Width = width or 9, Height = height or width,
         StyleOff = styleOff, StyleOn = styleOn,
@@ -80,10 +87,10 @@ end
 ---@param height number|nil `Default = 9`
 ---@param styleOff Style Style of the unchecked checkbox
 ---@param styleOn Style Style of the checked checkbox
----@param method CheckBoxMethod `Default = UserClick` (propably what you want)
+---@param method CheckboxMethod `Default = UserClick` (propably what you want)
 ---@param channelOrIdOrVar number|any|boolean See `EnumCheckBoxMethod` comment
-function DrawCheckBox(x, y, id, charOn, charOff, width, height, styleOff, styleOn, method, channelOrIdOrVar)
+function DrawCheckbox(x, y, id, charOn, charOff, width, height, styleOff, styleOn, method, channelOrIdOrVar)
     Draw(x, y,
-        CheckBox(charOn, charOff, width, height, styleOff, styleOn, method, channelOrIdOrVar, true),
+        Checkbox(charOn, charOff, width, height, styleOff, styleOn, method, channelOrIdOrVar, true),
         id)
 end

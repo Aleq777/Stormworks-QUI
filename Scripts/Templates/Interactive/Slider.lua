@@ -1,5 +1,10 @@
--- QUI 2 Slider (range)
---- REQUIRED: "Base.lua"
+--- QUI 2
+--- Official Template: Slider
+--- Author: @Aleq777
+--- Includes:
+---     Slider - Like HTML <input type="range">. By holding & dragging or pressing, you can set a value from range.
+---@module 'Base' REQUIRED
+---@module 'Templates.Bar'  REQUIRED
 
 -- REWORK !!!
 
@@ -7,9 +12,12 @@
 ---@diagnostic disable:duplicate-doc-alias
 
 
--- See "OPTIMISE_ME.md" for optimising code below
+---@see OPTIMISE_ME.md
 PushDict(Templates, {
     ["Slider"] = function (x, y, obj, id)
+
+        ---@type BarDirection
+        obj.Direction = obj.Direction or 0
 
         -- is registered
         if not _Data[id] then
@@ -31,28 +39,29 @@ PushDict(Templates, {
 
         if IsInBox(x, y, obj.Width, obj.Height) then
 
-            if obj.Direction == EnumBarDirection.Right then
+            -- Right
+            if obj.Direction == 1 then
 
                 valueX = (TouchX - x) / obj.Width
                 valueY = (TouchY - y) / obj.Height
 
                 isCorrect(valueX)
 
-            elseif obj.Direction == EnumBarDirection.Down then
+            elseif obj.Direction == 2 then -- Down
 
                 valueX = (TouchX - x) / obj.Width
                 valueY = (TouchY - y) / obj.Height
 
                 isCorrect(valueY)
 
-            elseif obj.Direction == EnumBarDirection.Left then
+            elseif obj.Direction == 3 then -- Left
 
                 valueX = 1 - (TouchX - x) / obj.Width
                 valueY = (TouchY - y) / obj.Height
 
                 isCorrect(valueX)
 
-            else
+            else -- Up, default
 
                 valueX = (TouchX - x) / obj.Width
                 valueY = 1 - (TouchY - y) / obj.Height
@@ -72,33 +81,33 @@ PushDict(Templates, {
 
             local prop = PropertiesOf(obj.SliderObj)
 
-            if obj.Direction == EnumBarDirection.Right then
+            -- Right
+            if obj.Direction == 1 then
+
                 ---@diagnostic disable-next-line:undefined-field
                 Draw(x + v * obj.Width - prop.Width / 2, y - prop.Height / 2, prop) -- obj.Width is the width of the funny bar line, prop.Width is the width of the SliderObj like a pointer or smth
-            elseif obj.Direction == EnumBarDirection.Down then
+
+            elseif obj.Direction == 2 then -- Down
+
                 ---@diagnostic disable-next-line:undefined-field
                 Draw(x - prop.Width / 2, y + v * obj.Height - prop.Height / 2, prop)
-            elseif obj.Direction == EnumBarDirection.Left then
+
+            elseif obj.Direction == 3 then -- Left
+
                 ---@diagnostic disable-next-line:undefined-field
                 Draw(x - obj.Width * (1 - v) - prop.Width / 2, y - prop.Height / 2, prop)
-            else
+
+            else -- Up, default
+
                 ---@diagnostic disable-next-line:undefined-field
                 Draw(x - prop.Width / 2, y + obj.Height * (1 - v) - prop.Height / 2, prop)
+
             end
 
         end
 
     end
 })
-
-
----@enum BarDirection
-EnumBarDirection = {
-    Up = 0,
-    Right = 1,
-    Down = 2,
-    Left = 3
-}
 
 
 --- A slider. Like in HTML input range
@@ -115,14 +124,15 @@ EnumBarDirection = {
 ---@return number|Object
 function Slider(width, height, box, style, direction, min, max, step, default, isAnon)
     return Object("Slider", {
-        Width = width, Height = height,
+        Width = width,      Height = height,
         SliderObj = box,
         Direction = direction,
-        Min = min or 0, Max = max or 1, Step = step,
+        Min = min or 0,     Max = max or 1,     Step = step,
         Default = default or min or 0,
         Style = style
     }, isAnon)
 end
+
 
 --- Draw a slider. Like in HTML input range
 ---@param width number

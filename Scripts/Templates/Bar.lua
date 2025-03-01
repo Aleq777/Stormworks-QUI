@@ -1,25 +1,40 @@
--- QUI 2 Gauges and Sliders
---- REQUIRED: "Base.lua"
+--- QUI 2
+--- Official Template: Bar
+--- Author: @Aleq777
+--- Includes:
+---     Bar - Like gauge, fills up and shows current value
+---@module 'Base' REQUIRED
 
 ---@diagnostic disable:duplicate-doc-alias
 
 
--- See "OPTIMISE_ME.md" for optimising code below
+---@alias BarDirection
+---| 0 # Up
+---| 1 # Right
+---| 2 # Down
+---| 3 # Left
+
+
+---@see OPTIMISE_ME.md
 PushDict(Templates, {
     ["Bar"] = function (x, y, obj)
         local a, z = obj.Style.Border and 1 or 0, Style(nil, obj.Style.Fore)
 
+        ---@type BarDirection
+        obj.Direction = obj.Direction or 0
+
         DrawBox(x, y, obj.Width, obj.Height, obj.Style)
 
-        if obj.Direction == EnumBarDirection.Left then
+        -- Left
+        if obj.Direction == 3 then
 
             DrawBox(x + obj.WIDTH * (1 - obj.Value) + a, y + a, obj.Width * (1 - obj.Value) - 2 * a, obj.Height - 2 * a, z)
 
-        elseif obj.Direction == EnumBarDirection.Right then
+        elseif obj.Direction == 1 then -- Right
 
             DrawBox(x + a, y + a, obj.Width * obj.Value - 2 * a, obj.Height - 2 * a, z)
 
-        elseif obj.Direction == EnumBarDirection.Down then
+        elseif obj.Direction == 2 then -- Down
 
             DrawBox(x + a, y + a, obj.Width - 2 * a, obj.Height * obj.Value - 2 * a, z)
 
@@ -32,13 +47,6 @@ PushDict(Templates, {
 })
 
 
----@alias BarDirection
----| 0 # Up
----| 1 # Right
----| 2 # Down
----| 3 # Left
-
-
 --- A bar. Works like a gauge.
 ---@param width number
 ---@param height number
@@ -49,8 +57,8 @@ PushDict(Templates, {
 ---@return number|Object
 function Bar(width, height, value, direction, style, isAnon)
     return Object("Bar", {
-        Width = width, Height = height,
-        Direction = direction, Value = value,
+        Width = width,      Height = height,
+        Direction = direction,      Value = value,
         Style = style
     }, isAnon)
 end
