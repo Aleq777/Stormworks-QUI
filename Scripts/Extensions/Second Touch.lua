@@ -1,3 +1,8 @@
+--- QUI 2
+--- Official Extension: Second Touch
+--- Author: @Aleq777
+---     Gives the possibility for easy detecting a "Stouch" (E and Q pressed once)
+
 
 ---@type boolean Is youser double touching (stouching) the monitor? (E and Q)
 Stouching = nil
