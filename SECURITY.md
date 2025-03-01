@@ -5,6 +5,7 @@
 | Version | Supported          |
 | ------- | ------------------ |
 | 0.2.0-alpha | :yellow_square: |
+| 0.1.0-alpha | :x: |
 
 ## Reporting a Vulnerability
 
