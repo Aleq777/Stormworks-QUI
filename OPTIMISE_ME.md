@@ -1,7 +1,7 @@
 # About optimising
 There are different ways of optimalisation of code. The most important part is length - because Lua scripts in Stormworks have limited char count.
 
-> [!INFO]
+> [!INFORMATION]
 > Single Lua Script block in Stormworks has a limit of `8192` characters.
 
 Sometimes, the code needs to run faster to not get the timeout.
