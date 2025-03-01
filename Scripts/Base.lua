@@ -479,7 +479,7 @@ end
 ---@param fore Color|Color[]|nil? Color or gradient `Default = Foreground`
 ---@param back Color|nil? Background color `Default = Background`
 ---@param border Color|nil? Border color `Default = no border`
----@diagnostic disable-next-line:undefined-doc-class
+---@diagnostic disable-next-line
 ---@param decor TextStyle|TitleStyle? Text decoration `Default = no decoration`. TitleStyle requires "Formatted texts.lua"
 ---@return Style
 ---@nodiscard
