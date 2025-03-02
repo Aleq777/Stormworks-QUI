@@ -49,6 +49,7 @@ do
 
     ---@class Object has multiple fields
     ---@field Type string Template name
+    ---@field Params table
     local __Objects = { }
 
 
@@ -65,7 +66,7 @@ end
 ---@param a any
 function LOG(a)
 
-    if type(a) == type({ }) then
+    if type(a) == "table" then
         for k, v in pairs(a) do
             print(k, v)
         end
@@ -811,7 +812,7 @@ Objects = { }
 ---@return Object # reference
 ---@nodiscard
 function PropertiesOf(idOrObject)
-    if type(idOrObject) == type({ }) then
+    if type(idOrObject) == "table" then
         return idOrObject --[[@as Object]]
     end
 
@@ -822,17 +823,31 @@ end
 
 
 
----@section GetCopy
+---@section CopyOf
 
 --- Returns a COPY BY VALUE of the Object. Best for creating an anonymous object (copy) with different properties.
----@param idOrObject number ID of the Object in `Objects`
+---@param idOrObject number|Object ID of the Object in `Objects` or a reference to the Object
 ---@return Object # value
 ---@nodiscard
-function GetCopy(idOrObject)
-    local result, ref = { }, Objects[idOrObject]
+function CopyOf(idOrObject)
+    local result = { }
 
-    for k, v in pairs(ref) do
-        result[k] = v
+    if type (idOrObject) == "number" then
+        for k, v in pairs(Objects[idOrObject]) do
+            if type (v) == "table" then
+                local copy = CopyOf(v)
+                result[k] = { }
+                for i, j in pairs(copy) do
+                    result[k][i] = j
+                end
+            else
+                result[k] = v
+            end
+        end
+    else
+        for k, v in pairs(idOrObject --[[@as Object]]) do
+            result[k] = v
+        end
     end
 
     return result
@@ -851,7 +866,7 @@ Templates = {
         screen.drawLine(x, y, obj.X + x, obj.Y + y)     ---@diagnostic disable-line:undefined-global
     end,
     ["TrigLine"] = function (x, y, obj)
-        DrawLine(x, y, x + obj.R * cos(obj.Angle), y + obj.R * sin(obj.Angle), obj.Color)
+        DrawLine(x, y, obj.R * cos(obj.Angle), obj.R * sin(obj.Angle), obj.Color)
     end,
     ["Dot"] = function (x, y, obj)
         DrawLine(x, y, 1, 0, obj.Color)
@@ -860,7 +875,7 @@ Templates = {
         SetColor(obj.Style.Back)
         screen.drawRectF(x, y, obj.Width, obj.Height)   ---@diagnostic disable-line:undefined-global
         SetColor(obj.Style.Border or TRANS)
-        screen.drawRect(x, y, obj.Width, obj.Height)    ---@diagnostic disable-line:undefined-global
+        screen.drawRect(x, y, obj.Width - 1, obj.Height - 1)    ---@diagnostic disable-line:undefined-global
     end,
     ["Triangle"] = function (x, y, obj)
         local function coords()
@@ -875,7 +890,7 @@ Templates = {
     ["Circle"] = function (x, y, obj)
         SetColor(obj.Style.Back)
         screen.drawCircleF(x, y, obj.R)     ---@diagnostic disable-line:undefined-global
-        SetColor(obj.Style.Border or TRANS)
+        SetColor(obj.Style.Border or obj.Style.Back) -- it's a better circle when bordered lol
         screen.drawCircle(x, y, obj.R)      ---@diagnostic disable-line:undefined-global
     end,
     ["Text"] = function (x, y, obj)
@@ -883,15 +898,15 @@ Templates = {
         screen.drawText(x, y, obj.Text)     ---@diagnostic disable-line:undefined-global
     end,
     ["StyledText"] = function (x, y, obj)
-        local w = obj.Width or TextWidth(obj.Text)
+        -- width
+        local w = obj.Width
 
-        if obj.Width then
-            w = obj.Width
-        else
+        if not w then
             w = TextWidth(obj.Text)
             w = w + 1
         end
 
+        -- height
         local h, ln
 
         if obj.Height then
@@ -900,12 +915,27 @@ Templates = {
             h, ln = TextHeight(obj.Text, w)
         end
 
-        local a = obj.Style.Border and 2 or 0
-        DrawBox(x, y, w + 1.5 * a - 1, h + 1.5 * a, obj.Style)
+
+        -- Draw
+        -- drawTextBox is little bugged, so I had to this (I think)
+        local a, builder, mod = obj.Style.Border and 2 or 0, "", 0
+        DrawBox(x, y, w + 1.5 * a - 1, h + 2 * a, obj.Style)
 
         SetColor(obj.Style.Fore)
-        screen.drawTextBox(x + a, y + a, w, h, obj.Text, 0, 0)      ---@diagnostic disable-line:undefined-global
+        for k, v in pairs(totable(obj.Text)) do
+            if v == '\n' then
+                screen.drawTextBox(x + a, y + a + mod, w, 5, builder, 0, 0)   ---@diagnostic disable-line:undefined-global
+                builder = ""
+                mod = mod + 6
+            else
+                builder = builder .. v
+            end
+        end
 
+        -- In case if builder isn't empty
+        screen.drawTextBox(x + a, y + a + mod, w, h, builder, 0, 0)       ---@diagnostic disable-line:undefined-global
+
+        -- styles
         if obj.Style.Decor == 'u' then
 
             DrawTrigLine(x, y + h - 2, 0, w, obj.Style.Fore)
@@ -929,12 +959,12 @@ Templates = {
 ---@param id any|nil? Required only for interactives (Buttons etc)
 function Draw(x, y, obj, id)
     -- Is anonymous - true is table of an object, false is a reference to the premade object
-    if type(obj) == type(0) then
+    if type (obj) == "number" then
         obj = Objects[obj]
     end
 
     -- Spawn object
-    Templates[obj.Type](x, y, obj, id)
+    Templates[obj.Type](x, y, obj.Params, id)
 end
 
 
@@ -947,8 +977,12 @@ end
 ---@return number|Object # The anonymous object or number as a reference to the `Objects`
 ---@nodiscard
 function Object(typeof, dict, isAnon)
-    local result = { Type = typeof }
-    PushDict(result, dict)
+    local result = {
+        Type = typeof,
+        Params = { }
+    }
+
+    PushDict(result.Params, dict)
 
     if isAnon then
         return result
@@ -1001,7 +1035,7 @@ end
 ---@section TrigLine
 
 --- Line with using trigonometry.
----@param angle number degrees. 0* -> line going to the left.
+---@param angle number degrees. 0* -> line going to the right.
 ---@param r number Length in pixels
 ---@param color Color|nil? Color. Gradients are available in "Gradient" module
 ---@param isAnon boolean|nil? Anonymous object = you will use it once
@@ -1137,8 +1171,8 @@ function StyledText(text, style, width, height, isAnon)
     return Object("StyledText", {
         Text = text,
         Style = style,
-        Width = width or w,
-        Height = height or TextHeight(text, w)
+        Width = width,
+        Height = height
     }, isAnon)
 end
 
@@ -1183,7 +1217,7 @@ end
 --- Line with using trigonometry.
 ---@param x number Start point
 ---@param y number Start point
----@param angle number degrees. 0* -> line going to the left.
+---@param angle number degrees. 0* -> line going to the right.
 ---@param r number Length in pixels
 ---@param color Color|nil? Color. Gradients are available in "Gradient" module
 function DrawTrigLine(x, y, angle, r, color)
