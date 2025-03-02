@@ -93,23 +93,45 @@ end
 --- BASIC FUNCTIONS
 
 ---@diagnostic disable
+
 gn = input.getNumber
 gb = input.getBool
 sn = output.setNumber
 sb = output.setBool
+---@section pn
 pn = property.getNumber
+---@endsection
+---@section pb
 pb = property.getBool
+---@endsection
+---@section pt
 pt = property.getText
+---@endsection
+
 ---@diagnostic enable
 
 
+---@section abs
 abs = math.abs
+---@endsection
+---@section floor
 floor = math.floor
+---@endsection
+---@section ceil
 ceil = math.ceil
+---@endsection
+---@section sqrt
 sqrt = math.sqrt
+---@endsection
+---@section rad
 rad = math.rad
+---@endsection
+---@section deg
 deg = math.deg
-pi = math.pi
+---@endsection
+---@section pi
+PI = math.pi
+---@endsection
 
 
 ---@section sin
@@ -653,17 +675,36 @@ end
 TRANS  = Color(0, 0, 0, 0)
 WHITE  = Color(255, 255, 255)
 BLACK  = Color()
+---@section GREY
 GREY   = Color(127, 127, 127)
+---@endsection
+---@section RED
 RED    = Color(255)
+---@endsection
+---@section ORANGE
 ORANGE = Color(255, 127)
+---@endsection
+---@section YELLOW
 YELLOW = Color(255, 255)
+---@endsection
+---@section CITRUS
 CITRUS = Color(127, 255)
+---@endsection
+---@section GREEN
 GREEN  = Color(0, 255)
+---@endsection
+---@section CYAN
 CYAN   = Color(0, 255, 255)
+---@endsection
+---@section BLUE
 BLUE   = Color(0, 0, 255)
+---@endsection
+---@section PINK
 PINK   = Color(255, 0, 255)
+---@endsection
+---@section PURPLE
 PURPLE = Color(127, 0, 255)
-
+---@endsection
 
 ---@type Color Color of the foreground
 Foreground = WHITE
@@ -861,22 +902,31 @@ end
 
 ---@type function[] Templates' behaviours and draw-executing
 Templates = {
+    ---@section "Line"
     ["Line"] = function (x, y, obj)
         SetColor(obj.Color)
         screen.drawLine(x, y, obj.X + x, obj.Y + y)     ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "TrigLine"
     ["TrigLine"] = function (x, y, obj)
         DrawLine(x, y, obj.R * cos(obj.Angle), obj.R * sin(obj.Angle), obj.Color)
     end,
+    ---@endsection
+    ---@section "Dot"
     ["Dot"] = function (x, y, obj)
         DrawLine(x, y, 1, 0, obj.Color)
     end,
+    ---@endsection
+    ---@section "Box"
     ["Box"] = function (x, y, obj)
         SetColor(obj.Style.Back)
         screen.drawRectF(x, y, obj.Width, obj.Height)   ---@diagnostic disable-line:undefined-global
         SetColor(obj.Style.Border or TRANS)
         screen.drawRect(x, y, obj.Width - 1, obj.Height - 1)    ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "Triangle"
     ["Triangle"] = function (x, y, obj)
         local function coords()
             return obj.Ax + x, obj.Ay + y, obj.Bx + x, obj.By + y, obj.Cx + x, obj.Cy + y
@@ -887,16 +937,22 @@ Templates = {
         SetColor(obj.Style.Border or TRANS)
         screen.drawTriangle(coords())       ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "Circle"
     ["Circle"] = function (x, y, obj)
         SetColor(obj.Style.Back)
         screen.drawCircleF(x, y, obj.R)     ---@diagnostic disable-line:undefined-global
         SetColor(obj.Style.Border or obj.Style.Back) -- it's a better circle when bordered lol
         screen.drawCircle(x, y, obj.R)      ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "Text"
     ["Text"] = function (x, y, obj)
         SetColor(obj.Color)
         screen.drawText(x, y, obj.Text)     ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "StyledText"
     ["StyledText"] = function (x, y, obj)
         -- width
         local w = obj.Width
@@ -948,6 +1004,7 @@ Templates = {
 
         end
     end,
+    ---@endsection
 }
 
 
