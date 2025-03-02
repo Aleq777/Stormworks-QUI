@@ -3,6 +3,7 @@
 --- Author: @Aleq777
 ---     Gives the possibility for easy detecting a "Stouch" (E and Q pressed once)
 
+---@section Stouching
 
 ---@type boolean Is youser double touching (stouching) the monitor? (E and Q)
 Stouching = nil
@@ -22,6 +23,8 @@ StouchY = nil
 function IsInBox2(x, y, x2, y2)
     return Stouching and StouchX >= x and StouchX <= x2 and StouchY >= y and StouchY <= y2
 end
+
+---@endsection
 
 
 ---@see ADD THIS TO onTick FUNCTION (below Touchs)
