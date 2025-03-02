@@ -6,6 +6,9 @@ It has many possibilites - and they can be easily extended too.
 
 Read this document - it may be helpful.
 
+> [!TIP]
+> Join [QUI Discord server]() for help and faster contact with me and Contributors
+
 In this document:
 - [About QUI](#about)
 - [QUI Discord server](#discord)
@@ -40,9 +43,6 @@ In this document:
   - [Policy](#policy)
 
 ## <a name="about"></a> About QUI
-
-> [!TIP]
-> Join [QUI Discord server]() for help and faster contact with me and Contributors
 
 **Who can use QUI?** - everyone!
 - For beginners, it offers a really easy functions to draw basic elements. It may help with learning concepts of Stormworks monitors and Lua.
@@ -103,7 +103,7 @@ The easiest way to create UI is using this IDE:
 
 ### <a name="addt"></a> Adding Special Templates
 
-### <a name÷"adde"></a> Adding Extensions
+### <a name="adde"></a> Adding Extensions
 
 
 # <a name="using"></a> III. USING QUI
