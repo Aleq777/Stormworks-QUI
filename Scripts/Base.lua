@@ -1,12 +1,13 @@
 --- QUI 2.0
 --- Author: @Aleq777
 ---     Discord:    aleq777
----     Steam:      Aleq777
+---     Steam:      Aleq777     https://steamcommunity.com/id/aleq777
 --- Any questions? Ask on:
----     Discord QUI Server: -soon-
----     Steam Workshop QUI/Examples
+---     Discord QUI Server:             https://discord.gg/zjjqBnx6xu
+---     Steam Workshop QUI/Examples     -soon-
+---     Dm me on Discord:               aleq777
 ---     Ping me on #lua in Stormworks Discord server https://discord.gg/stormworks
----     Dm me on Discord - aleq777
+
 
 ---@see README.md !!!
 
@@ -15,53 +16,57 @@
 ---@diagnostic disable:lowercase-global
 
 
+---@section __IT_EXISTS__
+--- it exists only for annotations to work
 
----@section It's just for annotations to work
-
-
----@class NumberWithMass
----@field [1] number value
----@field [2] number mass
-__NumberWithMasses = { }
+do
+    local __IT_EXISTS__ = nil
 
 
----@class Color
----@field R number
----@field G number
----@field B number
----@field A number
----@field Length number|nil For gradient arrays only
-__Colors = { }
+    ---@class NumberWithMass
+    ---@field [1] number value
+    ---@field [2] number mass
+    local __NumberWithMasses = { }
 
 
----@class Style
----@field Fore Color|Color[]
----@field Back Color
----@field Border Color|nil
----@diagnostic disable-next-line
----@field Decoration TextStyles|TitleStyles|nil
-__Styles = { }
+    ---@class Color
+    ---@field R number
+    ---@field G number
+    ---@field B number
+    ---@field A number
+    ---@field Length number|nil For gradient arrays only
+    local __Colors = { }
 
 
----@class Object has multiple fields
----@field Type string Template name
-__Objects = { }
+    ---@class Style
+    ---@field Fore Color|Color[]
+    ---@field Back Color
+    ---@field Border Color|nil
+    ---@diagnostic disable-next-line
+    ---@field Decoration TextStyles|TitleStyles|nil
+    local __Styles = { }
 
 
----@class Data
----@field Value any? The value
----@field Active boolean|nil? Display it as active?
----@field FuncOn boolean|nil? Run function?
----@field PrevClick boolean|nil? In previous tick, was I clicking it? -- for Pulse and Toggle
-__Datas = { }
+    ---@class Object has multiple fields
+    ---@field Type string Template name
+    ---@field Params table
+    local __Objects = { }
 
+
+    ---@class Data
+    ---@field Value any? The value
+    ---@field Active boolean|nil? Display it as active?
+    ---@field FuncOn boolean|nil? Run function?
+    ---@field PrevClick boolean|nil? In previous tick, was I clicking it? -- for Pulse and Toggle
+    local __Datas = { }
+end
 
 
 --- Fast debugging for IDE
 ---@param a any
 function LOG(a)
 
-    if type(a) == type({ }) then
+    if type(a) == "table" then
         for k, v in pairs(a) do
             print(k, v)
         end
@@ -73,31 +78,63 @@ function LOG(a)
 end
 
 
-
-
 ---@endsection
 
 
 
 
 
--- BASIC FUNCTIONS
 
 
-gn = input.getNumber    ---@diagnostic disable-line:undefined-global
-gb = input.getBool      ---@diagnostic disable-line:undefined-global
-sn = output.setNumber   ---@diagnostic disable-line:undefined-global
-sb = output.setBool     ---@diagnostic disable-line:undefined-global
-pn = property.getNumber ---@diagnostic disable-line:undefined-global
-pb = property.getBool   ---@diagnostic disable-line:undefined-global
-pt = property.getText   ---@diagnostic disable-line:undefined-global
 
 
+
+
+--- BASIC FUNCTIONS
+
+---@diagnostic disable
+
+gn = input.getNumber
+gb = input.getBool
+sn = output.setNumber
+sb = output.setBool
+---@section pn
+pn = property.getNumber
+---@endsection
+---@section pb
+pb = property.getBool
+---@endsection
+---@section pt
+pt = property.getText
+---@endsection
+
+---@diagnostic enable
+
+
+---@section abs
+abs = math.abs
+---@endsection
+---@section floor
 floor = math.floor
+---@endsection
+---@section ceil
+ceil = math.ceil
+---@endsection
+---@section sqrt
+sqrt = math.sqrt
+---@endsection
+---@section rad
 rad = math.rad
+---@endsection
+---@section deg
 deg = math.deg
-pi = math.pi
+---@endsection
+---@section pi
+PI = math.pi
+---@endsection
 
+
+---@section sin
 
 --- `math.sin`
 ---@param a number degrees
@@ -107,6 +144,11 @@ function sin(a)
     return math.sin(rad(a))
 end
 
+---@endsection
+
+
+
+---@section cos
 
 --- `math.cos`
 ---@param a number degrees
@@ -116,6 +158,25 @@ function cos(a)
     return math.cos(rad(a))
 end
 
+---@endsection
+
+
+
+---@section tg
+
+--- `math.tan`
+---@param a number degrees
+---@return number # tan
+---@nodiscard
+function tg(a)
+    return math.tan(rad(a + 180))
+end
+
+---@endsection
+
+
+
+---@section asin
 
 --- `math.asin`
 ---@param n number
@@ -125,6 +186,11 @@ function asin(n)
     return deg(math.asin(n))
 end
 
+---@endsection
+
+
+
+---@section acos
 
 --- `math.acos`
 ---@param n number
@@ -134,45 +200,25 @@ function acos(n)
     return deg(math.acos(n))
 end
 
+---@endsection
 
---- Returns a value which will be between `min` and `max`.
----@param num number
----@param min number|nil? `default = 0`
----@param max number|nil? `default = 1`
----@return number # returns the `num` or `min`/`max`
+
+
+---@section atg
+
+--- `math.atan`
+---@param n number
+---@return number # degrees
 ---@nodiscard
-function clamp(num, min, max)
-    min = min or 0
-    max = max or 1
-
-    return math.max(math.min(num, max), min)
+function atg(n, m)
+    return deg(math.atan(n, m))
 end
 
-
---- Return value translated to the range of `0.0 - 1.0`
----@param min number Minimal value of the `value`
----@param max number Maximal value of the `value`
----@param value number Number between the `min` and `max`
----@return number # value 0-1
----@nodiscard
-function ZeroOne(min, max, value)
-    return clamp((value - min) / (max - min))
-end
+---@endsection
 
 
 
-
-
---- It adds `newChar` to the `str` only, if `str` has a lenght smaller than `maxLen`
----@param maxLen number Maximal acceptable length of the string
----@param str string The base string
----@param newChar string Character to add to `str`
----@return string # A modified string which won't be longer than `maxLen`
----@nodiscard
-function sclamp(str, maxLen, newChar)
-    return #str + 1 > maxLen and str or str .. newChar
-end
-
+---@section round
 
 --- It rounds the number in a mathematical way (`>= 0.5` -> 1, `< 0.5` -> 0).
 --- Also, it can return a number rounded to a decimal point.
@@ -189,6 +235,25 @@ function round(num, decimals)
     return floor(num + 0.5)
 end
 
+---@endsection
+
+
+
+---@section sign
+
+--- Returns the sign of the number (`1` or `-1`)
+---@param n number
+---@return number # 1 if `> 0`, -1 if `< 0`
+---@nodiscard
+function sign(n)
+    return n < 0 and -1 or 1
+end
+
+---@endsection
+
+
+
+---@section avg
 
 --- Returns a mathematical average of the numbers
 ---@param ... number
@@ -206,7 +271,11 @@ function avg(...)
     return #t == 0 and 0 or sum / #t
 end
 
+---@endsection
 
+
+
+---@section avgm
 
 --- Returns an arithmetical average of the numbers.
 --- Write every elements as a table of 2 elements: `[number, mass]`
@@ -226,9 +295,129 @@ function avgm(...)
     return div == 0 and 0 or sum / div
 end
 
+---@endsection
 
 
 
+
+---@section totable
+
+--- Converts a string to a table
+---@param str string
+---@return table
+---@nodiscard
+function totable(str)
+    local result = { }
+    for i = 1, #str do
+        table.insert(result, string.sub(str, i, i))
+    end
+
+    return result
+end
+
+---@endsection
+
+
+
+---@section clamp
+
+--- Returns a value which will be between `min` and `max`.
+---@param num number
+---@param min number|nil? `default = 0`
+---@param max number|nil? `default = 1`
+---@return number # returns the `num` or `min`/`max`
+---@nodiscard
+function clamp(num, min, max)
+    min = min or 0
+    max = max or 1
+
+    return math.max(math.min(num, max), min)
+end
+
+---@endsection
+
+
+
+---@section xor
+
+--- Logical XOR
+---@param a boolean
+---@param b boolean
+---@return boolean
+---@nodiscard
+function xor(a, b)
+    return a ~= b
+end
+
+---@endsection
+
+
+
+
+
+
+
+
+
+
+
+--- ADDITIONAL BASIC FUNCTIONS
+
+
+
+---@section InSpan
+
+--- Gives information, if the number fits between `min` and `max`
+---@param value number
+---@param min number|nil? `Default = 0`
+---@param max number|nil? `Default = 1`
+---@return boolean
+---@nodiscard
+function InSpan(value, min, max)
+    min = min or 0
+    max = max or 1
+
+    return value >= min and value <= max
+end
+
+---@endsection
+
+
+
+---@section ZeroOne
+
+--- Return value translated to the range of `0.0 - 1.0`
+---@param min number Minimal value of the `value`
+---@param max number Maximal value of the `value`
+---@param value number Number between the `min` and `max`
+---@return number # value 0-1
+---@nodiscard
+function ZeroOne(min, max, value)
+    return clamp((value - min) / (max - min))
+end
+
+---@endsection
+
+
+
+---@section sclamp
+
+--- It adds `newChar` to the `str` only, if `str` has a lenght smaller than `maxLen`
+---@param maxLen number Maximal acceptable length of the string
+---@param str string The base string
+---@param newChar string Character to add to `str`
+---@return string # A modified string which won't be longer than `maxLen`
+---@nodiscard
+function sclamp(str, maxLen, newChar)
+    return #str + 1 > maxLen and str or str .. newChar
+end
+
+---@endsection
+
+
+
+
+---@section PushDict
 
 --- Adds to the provided table `base` properties of `dict`.
 ---@param base table Provided table as reference
@@ -242,6 +431,11 @@ function PushDict(base, dict)
     return base
 end
 
+---@endsection
+
+
+
+---@section FillPrefix
 
 --- Fills the string `value` with `prefix` in front of, until it's length is equal to `minLen`
 --- - Example: `FillPrefix(3, 3, '0')` -> '003'
@@ -260,20 +454,11 @@ function FillPrefix(value, minLen, prefix)
     return value
 end
 
+---@endsection
 
---- Converts a string to a table
----@param str string
----@return table
----@nodiscard
-function totable(str)
-    local result = { }
-    for i = 1, #str do
-        table.insert(result, string.sub(str, i, i))
-    end
 
-    return result
-end
 
+---@section IndexOf
 
 --- Returns the index of `value` in `array`
 ---@param arr table
@@ -290,13 +475,19 @@ function IndexOf(arr, value)
     return nil
 end
 
+---@endsection
 
 
 
 
 
--- MONITOR
 
+
+
+
+
+
+--- MONITOR FUNCTIONS
 
 
 
@@ -306,6 +497,13 @@ WIDTH = nil
 HEIGHT = nil
 
 
+
+--- Functionalities for touching (E or Q).
+---@see Extensions.Secound Touch for double touch (stouch, E and Q)
+---@section Touching
+
+
+
 ---@type boolean Is user touching the monitor? (E or Q)
 Touching = nil
 
@@ -313,6 +511,7 @@ Touching = nil
 TouchX = nil
 ---@type number Y position of the touch
 TouchY = nil
+
 
 
 --- Checks, if user is Touching the monitor inside a provided rectangle of 2 points
@@ -326,6 +525,13 @@ function IsInBox(x, y, x2, y2)
     return Touching and TouchX >= x and TouchX <= x2 and TouchY >= y and TouchY <= y2
 end
 
+
+
+---@endsection
+
+
+
+---@section TextWidth
 
 --- Calculates width of the text in pixels and columns (the widest line)
 ---@param text string
@@ -357,6 +563,11 @@ function TextWidth(text)
     return widths[index] - 1, (widths[index] + 1) / 5
 end
 
+---@endsection
+
+
+
+---@section TextHeight
 
 --- Calculates height of the text in pixels and lines
 ---@param text string
@@ -389,15 +600,61 @@ end
 
 
 
+---@endsection
+
+
+
+---@section Center
+
+--- Returns a position of the object, so it can be centered in a plane between `x1` and `x2`
+--- - Example: `Center(1, 10, 2)` -> 6.5 -- the object will be in the center.
+---@param x1 number Left/Top
+---@param x2 number Right/Bottom
+---@param length number Length of the object
+---@return number # Center coordinates
+---@nodiscard
+function Center(x1, x2, length)
+    return avg(x1, x2) - length / 2
+end
+
+---@endsection
+
+
+
+---@section Center2D
+
+--- Returns a position in the center of the box.
+---@param x1 number Point A
+---@param y1 number Point A
+---@param x2 number Point B
+---@param y2 number Point B
+---@param width number Width of the object
+---@param height number Height of the object
+---@return number # Center of X
+---@return number # Center of Y
+---@nodiscard
+function Center2D(x1, y1, x2, y2, width, height)
+    return Center(x1, x2, width), Center(y1, y2, height)
+end
+
+---@endsection
+
+
+
+
+
+
+
+
 
 
 
 -- COLORS
+--- In RGB(a) format
 
 
 
-
---- Create a color in RGBA
+--- Create a color in RGB(a)
 ---@param r number|nil? Red (`Default = 0`)
 ---@param g number|nil? Green (`Default = 0`)
 ---@param b number|nil? Blue (`Default = 0`)
@@ -414,20 +671,40 @@ function Color(r, g, b, a)
 end
 
 
-TRANS = Color(0, 0, 0, 0)
-WHITE = Color(255, 255, 255)
-BLACK = Color()
-GREY = Color(127, 127, 127)
-RED = Color(255)
+---@type Color Transparent
+TRANS  = Color(0, 0, 0, 0)
+WHITE  = Color(255, 255, 255)
+BLACK  = Color()
+---@section GREY
+GREY   = Color(127, 127, 127)
+---@endsection
+---@section RED
+RED    = Color(255)
+---@endsection
+---@section ORANGE
 ORANGE = Color(255, 127)
+---@endsection
+---@section YELLOW
 YELLOW = Color(255, 255)
+---@endsection
+---@section CITRUS
 CITRUS = Color(127, 255)
-GREEN = Color(0, 255)
-CYAN = Color(0, 255, 255)
-BLUE = Color(0, 0, 255)
-PINK = Color(255, 0, 255)
+---@endsection
+---@section GREEN
+GREEN  = Color(0, 255)
+---@endsection
+---@section CYAN
+CYAN   = Color(0, 255, 255)
+---@endsection
+---@section BLUE
+BLUE   = Color(0, 0, 255)
+---@endsection
+---@section PINK
+PINK   = Color(255, 0, 255)
+---@endsection
+---@section PURPLE
 PURPLE = Color(127, 0, 255)
-
+---@endsection
 
 ---@type Color Color of the foreground
 Foreground = WHITE
@@ -435,18 +712,30 @@ Foreground = WHITE
 Background = TRANS
 
 
+
+---@section SetFore
+
 --- Sets the `Foreground`
 ---@param color Color
 function SetFore(color)
     Foreground = color
 end
 
+---@endsection
+
+
+
+---@section SetBack
 
 --- Sets the `Background`
 ---@param color Color
 function SetBack(color)
     Background = color
 end
+
+---@endsection
+
+
 
 
 --- Sets the current color for `screen.*` functions
@@ -457,6 +746,9 @@ function SetColor(color)
 end
 
 
+
+---@section Clear
+
 --- Clears the monitor and fills with other color
 ---@param toColor Color|nil? `Default = Background`
 function Clear(toColor)
@@ -464,13 +756,27 @@ function Clear(toColor)
     screen.drawClear()      ---@diagnostic disable-line:undefined-global
 end
 
+---@endsection
 
+
+
+
+
+
+
+
+
+
+
+--- Custom styling with colors for advanced functions (Text, StyledText, custom Templates ...)
+---@section Style
 
 
 
 ---@alias TextStyle
 ---| 'u' # Text: Underline
 ---| 's' # Text: Strike
+
 
 
 --- Returns Style
@@ -492,7 +798,19 @@ end
 
 
 
+---@endsection
 
+
+
+
+
+
+
+
+
+
+
+---@section DEBUG
 
 --- Perfect for debugging and error making
 ---@param bool boolean If `true`, throw the error
@@ -502,12 +820,20 @@ function DEBUG(bool, text)
         Clear(GREY)
         DrawStyledText(1, 1, text, Style(RED), WIDTH - 2, HEIGHT - 2)
     end
-en
+end
+
+---@endsection
 
 
 
 
--- Object
+
+
+
+
+
+
+--- Objects
 --- Definition Reminder:
 ---     Template - type of object with defined (but not set) properties and behaviour (like a class)
 ---     Object - An instance of Template which has defined and set properties (like object of a class)
@@ -515,59 +841,92 @@ en
 
 
 
-
-
 ---@type Object[] List of objects (template instances) - can be spawned multiple times later
 Objects = { }
 
+
+
+---@section PropertiesOf
 
 --- Returns a REFERENCE to the Object. Best for changing or getting properties.
 ---@param idOrObject number|Object ID of the Object in `Objects` or actual anonymous Object
 ---@return Object # reference
 ---@nodiscard
 function PropertiesOf(idOrObject)
-    if type(idOrObject) == type({ }) then
+    if type(idOrObject) == "table" then
         return idOrObject --[[@as Object]]
     end
 
     return Objects[idOrObject]
 end
 
+---@endsection
+
+
+
+---@section CopyOf
 
 --- Returns a COPY BY VALUE of the Object. Best for creating an anonymous object (copy) with different properties.
----@param idOrObject number ID of the Object in `Objects`
+---@param idOrObject number|Object ID of the Object in `Objects` or a reference to the Object
 ---@return Object # value
 ---@nodiscard
-function GetCopy(idOrObject)
-    local result, ref = { }, Objects[idOrObject]
+function CopyOf(idOrObject)
+    local result = { }
 
-    for k, v in pairs(ref) do
-        result[k] = v
+    if type (idOrObject) == "number" then
+        for k, v in pairs(Objects[idOrObject]) do
+            if type (v) == "table" then
+                local copy = CopyOf(v)
+                result[k] = { }
+                for i, j in pairs(copy) do
+                    result[k][i] = j
+                end
+            else
+                result[k] = v
+            end
+        end
+    else
+        for k, v in pairs(idOrObject --[[@as Object]]) do
+            result[k] = v
+        end
     end
 
     return result
 end
 
+---@endsection
 
 
----@type function[] Templates' behaviours
+
+
+
+---@type function[] Templates' behaviours and draw-executing
 Templates = {
+    ---@section "Line"
     ["Line"] = function (x, y, obj)
         SetColor(obj.Color)
         screen.drawLine(x, y, obj.X + x, obj.Y + y)     ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "TrigLine"
     ["TrigLine"] = function (x, y, obj)
-        DrawLine(x, y, x + obj.R * cos(obj.Angle), y + obj.R * sin(obj.Angle), obj.Color)
+        DrawLine(x, y, obj.R * cos(obj.Angle), obj.R * sin(obj.Angle), obj.Color)
     end,
+    ---@endsection
+    ---@section "Dot"
     ["Dot"] = function (x, y, obj)
         DrawLine(x, y, 1, 0, obj.Color)
     end,
+    ---@endsection
+    ---@section "Box"
     ["Box"] = function (x, y, obj)
         SetColor(obj.Style.Back)
         screen.drawRectF(x, y, obj.Width, obj.Height)   ---@diagnostic disable-line:undefined-global
         SetColor(obj.Style.Border or TRANS)
-        screen.drawRect(x, y, obj.Width, obj.Height)    ---@diagnostic disable-line:undefined-global
+        screen.drawRect(x, y, obj.Width - 1, obj.Height - 1)    ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "Triangle"
     ["Triangle"] = function (x, y, obj)
         local function coords()
             return obj.Ax + x, obj.Ay + y, obj.Bx + x, obj.By + y, obj.Cx + x, obj.Cy + y
@@ -578,26 +937,32 @@ Templates = {
         SetColor(obj.Style.Border or TRANS)
         screen.drawTriangle(coords())       ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "Circle"
     ["Circle"] = function (x, y, obj)
         SetColor(obj.Style.Back)
         screen.drawCircleF(x, y, obj.R)     ---@diagnostic disable-line:undefined-global
-        SetColor(obj.Style.Border or TRANS)
+        SetColor(obj.Style.Border or obj.Style.Back) -- it's a better circle when bordered lol
         screen.drawCircle(x, y, obj.R)      ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "Text"
     ["Text"] = function (x, y, obj)
         SetColor(obj.Color)
         screen.drawText(x, y, obj.Text)     ---@diagnostic disable-line:undefined-global
     end,
+    ---@endsection
+    ---@section "StyledText"
     ["StyledText"] = function (x, y, obj)
-        local w = obj.Width or TextWidth(obj.Text)
+        -- width
+        local w = obj.Width
 
-        if obj.Width then
-            w = obj.Width
-        else
+        if not w then
             w = TextWidth(obj.Text)
             w = w + 1
         end
 
+        -- height
         local h, ln
 
         if obj.Height then
@@ -606,12 +971,27 @@ Templates = {
             h, ln = TextHeight(obj.Text, w)
         end
 
-        local a = obj.Style.Border and 2 or 0
-        DrawBox(x, y, w + 1.5 * a - 1, h + 1.5 * a, obj.Style)
+
+        -- Draw
+        -- drawTextBox is little bugged, so I had to this (I think)
+        local a, builder, mod = obj.Style.Border and 2 or 0, "", 0
+        DrawBox(x, y, w + 1.5 * a - 1, h + 2 * a, obj.Style)
 
         SetColor(obj.Style.Fore)
-        screen.drawTextBox(x + a, y + a, w, h, obj.Text, 0, 0)      ---@diagnostic disable-line:undefined-global
+        for k, v in pairs(totable(obj.Text)) do
+            if v == '\n' then
+                screen.drawTextBox(x + a, y + a + mod, w, 5, builder, 0, 0)   ---@diagnostic disable-line:undefined-global
+                builder = ""
+                mod = mod + 6
+            else
+                builder = builder .. v
+            end
+        end
 
+        -- In case if builder isn't empty
+        screen.drawTextBox(x + a, y + a + mod, w, h, builder, 0, 0)       ---@diagnostic disable-line:undefined-global
+
+        -- styles
         if obj.Style.Decor == 'u' then
 
             DrawTrigLine(x, y + h - 2, 0, w, obj.Style.Fore)
@@ -624,7 +1004,9 @@ Templates = {
 
         end
     end,
+    ---@endsection
 }
+
 
 
 --- Draws an Object. The object can be in `Objects` or can be anonymous.
@@ -634,12 +1016,12 @@ Templates = {
 ---@param id any|nil? Required only for interactives (Buttons etc)
 function Draw(x, y, obj, id)
     -- Is anonymous - true is table of an object, false is a reference to the premade object
-    if type(obj) == type(0) then
+    if type (obj) == "number" then
         obj = Objects[obj]
     end
 
     -- Spawn object
-    Templates[obj.Type](x, y, obj, id)
+    Templates[obj.Type](x, y, obj.Params, id)
 end
 
 
@@ -652,8 +1034,12 @@ end
 ---@return number|Object # The anonymous object or number as a reference to the `Objects`
 ---@nodiscard
 function Object(typeof, dict, isAnon)
-    local result = { Type = typeof }
-    PushDict(result, dict)
+    local result = {
+        Type = typeof,
+        Params = { }
+    }
+
+    PushDict(result.Params, dict)
 
     if isAnon then
         return result
@@ -661,14 +1047,19 @@ function Object(typeof, dict, isAnon)
 
     table.insert(Objects, result)
     return #Objects
-en
+end
 
 
 
 
 
 
--- CREATOR FUNCTIONS
+
+
+
+
+
+--- OBJECT FUNCTIONS
 --- Fast object creatior functions
 --- When you will create your own Template, you should include that function too, so it'll be easier your objects.
 --- Also, you can put comments, so it's more readable.
@@ -676,8 +1067,7 @@ en
 
 
 
-
-
+---@section Line
 
 --- Vector line.
 --- - Example - `x = 1, y = 2` will result in a line like `/`, and by `Draw()` function you can place that line wherever you want 
@@ -695,9 +1085,14 @@ function Line(x, y, color, isAnon)
     }, isAnon)
 end
 
+---@endsection
+
+
+
+---@section TrigLine
 
 --- Line with using trigonometry.
----@param angle number degrees. 0* -> line going to the left.
+---@param angle number degrees. 0* -> line going to the right.
 ---@param r number Length in pixels
 ---@param color Color|nil? Color. Gradients are available in "Gradient" module
 ---@param isAnon boolean|nil? Anonymous object = you will use it once
@@ -711,6 +1106,11 @@ function TrigLine(angle, r, color, isAnon)
     }, isAnon)
 end
 
+---@endsection
+
+
+
+---@section Dot
 
 --- Just a dot, point.
 ---@param color Color|nil?
@@ -723,6 +1123,11 @@ function Dot(color, isAnon)
     }, isAnon)
 end
 
+---@endsection
+
+
+
+---@section Box
 
 --- Box, square, rectangle.
 ---@param width number
@@ -739,6 +1144,11 @@ function Box(width, height, style, isAnon)
      }, isAnon)
 end
 
+---@endsection
+
+
+
+---@section Triangle
 
 --- Traingle.
 ---@param ax number Point A
@@ -760,6 +1170,11 @@ function Triangle(ax, ay, bx, by, cx, cy, style, isAnon)
     }, isAnon)
 end
 
+---@endsection
+
+
+
+---@section Circle
 
 --- Simple circle. For better ones, check "Better Circles" module.
 ---@param r number Radius in pixels
@@ -774,6 +1189,12 @@ function Circle(r, style, isAnon)
     }, isAnon)
 end
 
+---@endsection
+
+
+
+
+---@section Text
 
 --- Simple text. if you want background colors, borders, decorations - use `StyledText`
 ---@param text string
@@ -788,6 +1209,11 @@ function Text(text, color, isAnon)
     }, isAnon)
 end
 
+---@endsection
+
+
+
+---@section StyledText
 
 --- Super fun text. Customise anything.
 ---@param text string
@@ -802,19 +1228,30 @@ function StyledText(text, style, width, height, isAnon)
     return Object("StyledText", {
         Text = text,
         Style = style,
-        Width = width or w,
-        Height = height or TextHeight(text, w)
+        Width = width,
+        Height = height
     }, isAnon)
 end
 
+---@endsection
 
 
 
 
--- SHORT FUNCTIONS
+
+
+
+
+
+
+
+--- SHORT FUNCTIONS
 --- Short functions to draw anonymous objects.
 --- If you are creating custom templates - you can also include a short function. Depends on your goal - private projects or contributing to QUI.
 
+
+
+---@section DrawLine
 
 --- A simple line from point A to point B
 ---@param x number Point A
@@ -828,11 +1265,16 @@ function DrawLine(x, y, x2, y2, color)
     )
 end
 
+---@endsection
+
+
+
+---@section DrawTrigLine
 
 --- Line with using trigonometry.
 ---@param x number Start point
 ---@param y number Start point
----@param angle number degrees. 0* -> line going to the left.
+---@param angle number degrees. 0* -> line going to the right.
 ---@param r number Length in pixels
 ---@param color Color|nil? Color. Gradients are available in "Gradient" module
 function DrawTrigLine(x, y, angle, r, color)
@@ -841,6 +1283,11 @@ function DrawTrigLine(x, y, angle, r, color)
     )
 end
 
+---@endsection
+
+
+
+---@section DrawDot
 
 --- Just a dot, point.
 ---@param x number Position
@@ -852,6 +1299,12 @@ function DrawDot(x, y, color)
     )
 end
 
+---@endsection
+
+
+
+
+---@section DrawBox
 
 --- Box, square, rectangle.
 ---@param x number Position
@@ -865,6 +1318,11 @@ function DrawBox(x, y, width, height, style)
     )
 end
 
+---@endsection
+
+
+
+---@section DrawTriangle
 
 --- Triangle
 ---@param ax number Point A
@@ -880,6 +1338,10 @@ function DrawTriangle(ax, ay, bx, by, cx, cy, style)
     )
 end
 
+---@endsection
+
+
+---@section DrawCircle
 
 --- Simple circle. For better ones, check "Better Circles" module.
 ---@param x number Position of center
@@ -892,6 +1354,11 @@ function DrawCircle(x, y, r, style)
     )
 end
 
+---@endsection
+
+
+
+---@section DrawText
 
 --- Simple text. if you want background colors, borders, decorations - use `StyledText`
 ---@param x number Position
@@ -904,6 +1371,11 @@ function DrawText(x, y, text, color)
     )
 end
 
+---@endsection
+
+
+
+---@section DrawStyledText
 
 --- Super fun text. Customise anything.
 ---@param x number Position
@@ -918,20 +1390,30 @@ function DrawStyledText(x, y, text, style, width, height)
     )
 end
 
+---@endsection
 
 
 
 
--- INTERACTIONS
+
+
+
+
+
+
+
+--- INTERACTIONS
 --- You can create your own interactive Templates.
 --- You can get some ready interactive Templates, search for modules: Button, HTML Select, Second Interactivity, Slider, Input and CheckBox etc.
-
+---@section _Data 1 __INTERACTIVES__
 
 
 
 ---@type Data[] List of data and values required for interactive Templates
 _Data = { }
 
+
+---@section GetData
 
 --- Get the value of interactive element
 ---@param id any ID of interactive data
@@ -943,6 +1425,11 @@ function GetData(id)
     return _Data[id].Value
 end
 
+---@endsection
+
+
+
+---@section SetData
 
 --- Set (update) the value of interactive element. Sometimes helpful
 ---@param id any ID of interactive data
@@ -962,6 +1449,11 @@ function SetData(id, value, force)
     return false
 end
 
+---@endsection
+
+
+
+---@section ForceData
 
 --- Forces creating a new interactive data. Best when creating custom interactive templates.
 ---@param id any ID of interactive data
@@ -978,12 +1470,26 @@ function ForceData(id, value, funcOn, active, prevClick)
     }
 end
 
+---@endsection
+
+
+
+
+---@endsection INTERACTIVES
 
 
 
 
 
--- TIME
+
+
+
+
+
+
+--- TIME
+---@see Extensions.Time for time managment and functions
+---@section Update
 
 
 
@@ -991,8 +1497,17 @@ end
 --- Updates every tick, at the end of `onTick` function (there you should place this function).<br>
 --- Everything that has been added with `AddUpdate` function, will be updated.
 ---@see Time module. It's required, if you want to use this function
----@module 'Extensions.Time'
 function Update() end
+
+
+
+---@endsection
+
+
+
+
+
+
 
 
 
@@ -1000,15 +1515,15 @@ function Update() end
 
 --================= USER ===================
 
----@see Write your code here.
+---@see Write your code here or cut it out to your main project's file.
 
 
 
 
 function onTick()
+    -- Those should be included at the beginning of onTick function
     WIDTH = gn(1)
     HEIGHT = gn(2)
-
     Touching = gb(1)
     TouchX = gn(3)
     TouchY = gn(4)
@@ -1019,5 +1534,5 @@ end
 
 
 function onDraw()
-
+    
 end
