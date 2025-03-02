@@ -16,7 +16,7 @@
 
 
 
----@section REMOVE THIS BEFORE COMPILATION AFTER YOU FINISH YOUR PROJECT !!!!!!!!!!!
+---@section It's just for annotations to work
 
 
 ---@class NumberWithMass
@@ -75,13 +75,13 @@ end
 
 
 
----@endsection Stop removing here
+---@endsection
 
 
 
 
 
----@section BASIC FUNCTIONS
+-- BASIC FUNCTIONS
 
 
 gn = input.getNumber    ---@diagnostic disable-line:undefined-global
@@ -292,14 +292,13 @@ end
 
 
 
----@endsection
 
 
 
+-- MONITOR
 
 
 
----@section MONITOR
 
 ---@type number Width of the monitor
 WIDTH = nil
@@ -390,13 +389,12 @@ end
 
 
 
----@endsection
 
 
 
+-- COLORS
 
 
----@section COLORS
 
 
 --- Create a color in RGBA
@@ -504,19 +502,19 @@ function DEBUG(bool, text)
         Clear(GREY)
         DrawStyledText(1, 1, text, Style(RED), WIDTH - 2, HEIGHT - 2)
     end
-end
-
-
----@endsection
+en
 
 
 
 
----@section Object
+-- Object
 --- Definition Reminder:
 ---     Template - type of object with defined (but not set) properties and behaviour (like a class)
 ---     Object - An instance of Template which has defined and set properties (like object of a class)
 ---     Spirit - Spawned object on the monitor. "Index and Layers" module will use this term. Here it's not used.
+
+
+
 
 
 ---@type Object[] List of objects (template instances) - can be spawned multiple times later
@@ -663,21 +661,21 @@ function Object(typeof, dict, isAnon)
 
     table.insert(Objects, result)
     return #Objects
-end
-
-
----@endsection
+en
 
 
 
 
 
 
----@section CREATOR FUNCTIONS
+-- CREATOR FUNCTIONS
 --- Fast object creatior functions
 --- When you will create your own Template, you should include that function too, so it'll be easier your objects.
 --- Also, you can put comments, so it's more readable.
 --- Include in them the default values.
+
+
+
 
 
 
@@ -810,13 +808,10 @@ function StyledText(text, style, width, height, isAnon)
 end
 
 
----@endsection
 
 
 
-
-
----@section SHORT FUNCTIONS
+-- SHORT FUNCTIONS
 --- Short functions to draw anonymous objects.
 --- If you are creating custom templates - you can also include a short function. Depends on your goal - private projects or contributing to QUI.
 
@@ -924,13 +919,10 @@ function DrawStyledText(x, y, text, style, width, height)
 end
 
 
----@endsection
 
 
 
-
-
----@section INTERACTIONS
+-- INTERACTIONS
 --- You can create your own interactive Templates.
 --- You can get some ready interactive Templates, search for modules: Button, HTML Select, Second Interactivity, Slider, Input and CheckBox etc.
 
@@ -987,13 +979,13 @@ function ForceData(id, value, funcOn, active, prevClick)
 end
 
 
----@endsection
 
 
 
 
+-- TIME
 
----@section TIME
+
 
 
 --- Updates every tick, at the end of `onTick` function (there you should place this function).<br>
@@ -1003,7 +995,6 @@ end
 function Update() end
 
 
----@endsection
 
 
 
