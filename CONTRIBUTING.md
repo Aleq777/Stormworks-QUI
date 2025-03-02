@@ -1,36 +1,3 @@
-# Contributing to QUI
-
-
-
-Thank you for considering contributing to QUI!
-
-Please take a moment to read through this document to understand how you can contribute effectively and ensure a smooth collaboration with the project maintainers.
-
-## How to Contribute
-
-### 1. Fork the repository
-To contribute to this project, you will need to:
-1. For the repository
-2. Use codespace or clone the repository to your local machine:
-```bash
-git clone https://github.com/Aleq777/Stormworks-QUI.git
-```
-
-### 2. Create a new branch
-
-
-### 3. Make changes
-Now that you're on your own branch, make the necessary changes to improve the project. Here are a few important things to keep in mind while making your changes:
-
-- **Follow the coding style**: Ensure that your code follows the style and conventions used in the project. This helps maintain consistency across the codebase.
-- **Write meaningful commit messages**: When committing your changes, write clear and concise commit messages that describe the purpose of the change.
-- **Update documentation**: If your changes affect the usage of the project, make sure to update the documentation accordingly.
-
-
-
-
-
-
 # Contributting to QUI
 Thank you for considering contributing to QUI!
 
@@ -70,7 +37,7 @@ git clone https://github.com/Aleq777/Stormworks-QUI.git
 
 ### 2. Create a new branch
 
-> [!TPI]
+> [!TIP]
 > Before making any changes, it's best practice to create a new branch for each feature or bug fix. This will help keep your work organized and separate from the main project.
 
 Create a new branch in your forked repository or by running:
@@ -117,7 +84,7 @@ After submitting your PR, It'll be reviewed and confirmed or denied. In either c
 # Community Template
 
 > [!TIP]
-> About creating your own Templates: [Click here]()
+> Create your own Template: [Click here]()
 
 ## Contribute Template
 
@@ -146,7 +113,7 @@ Example:
 --- Includes:
 ---     Mouse - looks like a Windows cursor and it's following user's pressing location
 ---@module 'Base' REQUIRED
----@module 'Templates/Interactive/Button' REQUIRED IF you want a fancy mouse
+---@module 'Templates.Interactives.Button' REQUIRED IF you want a fancy mouse
 --- DISCLAIMER!
 ---     This is the best Template! Everyone should use it!
 ```
@@ -154,7 +121,7 @@ Example:
 # Community Extension
 
 > [!TIP]
-> About creating your own Extensions: [Click here]()
+> Create your own Extension: [Click here]()
 
 ## Contribue Extension
 
@@ -214,8 +181,9 @@ Example:
 --- Author: @Aleq777
 --- Discord: aleq777
 ---     Gives the possibility for easy detecting a "Trouch" (E and Q and R pressed at once (is that even possible???))
----@module 'Extensions/Second Touch' REQUIRED
----@module 'Community Extensions/Multi Touch' REQUIRED IF you want to use `MultiTouch` function
+---@module 'Extensions.Second Touch' REQUIRED
+---@module 'Community Extensions.Multi Touch' REQUIRED IF you want to use `MultiTouch` function
 ```
 
-4. 
+# Questions?
+Ask me on [Discord](), so we can easily talk through your thoughts.
