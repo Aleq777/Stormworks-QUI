@@ -963,12 +963,10 @@ Templates = {
         end
 
         -- height
-        local h, ln
+        local h, ln = TextHeight(obj.Text, w)
 
         if obj.Height then
             h = obj.Height
-        else
-            h, ln = TextHeight(obj.Text, w)
         end
 
 
