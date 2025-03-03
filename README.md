@@ -90,6 +90,7 @@ The easiest way to create UI is using this IDE:
 > [!NOTE]
 > If you are using different IDE, you will need to manually copy, paste and remove some parts of code.
 > You will must use a Lua code minifier too.
+> See [OPTIMISE_ME.md]() for manual optimalisation.
 
 > [!TIP]
 > When creating a Lua project for Stormworks microcontroller, you should always use an IDE or Text Editor.
