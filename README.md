@@ -356,44 +356,11 @@ function onDraw()
 end
 ```
 
-# <a name="templates"></a> IV. TEMPLATES
-
-## <a name="to"></a> Official `Templates`
-
-Official Templates, as mentioned earlier, are made by QUI Devs. They're created to work with QUI without any problem.
-
-You can find Official Templates [here]()
-
-## <a name="tc"></a> `Community Templates`
-
-Community Templates are contributed templates that were accepted by QUI Devs - they are meeting QUI coding standards, are optimised and tested. You may encounter custom Templates outside QUI library - we recomend to contribute custom projects to the QUI library, so it's easy accessed and everyone are sure that everything works fine.
-
-
-You can find Community Templates [here]()
-
-## <a name="tcustom"></a> `Custom Template`
+# <a name="templates"></a> IV. COMMUNITY CONTRIBUTIONS
 
 > [!IMPORTANT]
 > Sometimes, we will contact you to join push your Community Template to Official Templates, co-work for Official Template or make our version of that Template.
 
-You can create your own Template. If you are willing to contribute - see [CONTRIBUTING.md]() and [Custom Template.lua]()
-
-If you have any problems - join [QUI Discord server]() to get fast help.
-
-
-# <a name="extensions"></a> V. EXTENSIONS
-
-## <a name="eo"></a> Official `Extensions`
-
-Official Extensions are made by QUI Devs to give more possibilities for QUI and don't change it's compatibility.
-
-You can find Official Extensions [here]()
-
-## <a name="ec"></a> `Community Extensions`
-
-## <a name="ecustom"></a> `Custom Extension`
-
-## <a name="econtribute"></a> Contribute `Extension`
 
 # <a name="other"></a> VI. OTHER
 
@@ -413,6 +380,17 @@ Version support meaning:
 
 ### Contributions
 
+- For Templates and Extensions - we will make sure that you will be mentioned as an author, even if we move your contribution to Officials.<br>
+- For improving QUI code - we will mention you in the release description.
+
 ### Help and issues
 
+
+
 ### Fixing QUI code
+
+If you see a bug in/possibility to improve QUI base code / Official Template / Official Extension, contact us, make a contribution (PR) of those files.
+
+## Become QUI Dev
+
+At this point - I'm not searching for other devs. But if you have idea how to develop QUI, you are experienced and willing to help with development process - I'll be happy to see you as my partner.
