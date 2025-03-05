@@ -11,7 +11,7 @@ There are many ways to optimise your code - in this document you'll read about t
 
 When you are using VSC and LifeBoatAPI extension, length of the code won't be a problem.
 
-You will find everything on the [VSC Extension description]()
+You will find everything on the [VSC Extension description](https://marketplace.visualstudio.com/items?itemName=NameousChangey.lifeboatapi)
 
 ### Minifying
 
@@ -72,7 +72,7 @@ Every IDE can work differently with optimising (shortening) your code. Here are 
 
 ### Minifiers
 
-The first thing you should consider is using minifier. For example, [PonyIDE]()
+The first thing you should consider is using minifier. For example, [PonyIDE](https://lua.flaffipony.rocks)
 
 Length of your variable/function names won't make a difference. Use as many whitespaces as you want. Just copy and paste the minified code.
 

@@ -17,7 +17,7 @@ There are some requirements that your contribution must fulfill:
 2. Indent of 4 spaces is a preference. It would be nice to see that indent.
 3. Comment those parts of code, that aren't easy to understand from just reading. Don't overcomment too.
 4. Try to use [**LLS annotations**](https://luals.github.io/wiki/annotations/) - it may help you and others to understand, how your code works.
-5. I recommend joining [QUI Discord server](), so you can contact with me faster. Also, it'll be easier for other people to reach out for you.
+5. I recommend joining [QUI Discord server](https://discord.gg/zjjqBnx6xu), so you can contact with me faster. Also, it'll be easier for other people to reach out for you.
 
 ## Rules
 
@@ -84,7 +84,7 @@ After submitting your PR, It'll be reviewed and confirmed or denied. In either c
 # Community Template
 
 > [!TIP]
-> Create your own Template: [Click here]()
+> Create your own Template: [Click here](https://github.com/Aleq777/Stormworks-QUI/blob/Official/Scripts/Custom%20template.lua)
 
 ## Contribute Template
 
@@ -119,9 +119,6 @@ Example:
 ```
 
 # Community Extension
-
-> [!TIP]
-> Create your own Extension: [Click here]()
 
 ## Contribue Extension
 
@@ -186,4 +183,4 @@ Example:
 ```
 
 # Questions?
-Ask me on [Discord](), so we can easily talk through your thoughts.
+Ask me on [Discord](https://discord.gg/zjjqBnx6xu), so we can easily talk through your thoughts.

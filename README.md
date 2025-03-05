@@ -7,7 +7,7 @@ It has many possibilites - and they can be easily extended too.
 Read this document - it may be helpful.
 
 > [!TIP]
-> Join [QUI Discord server]() for help and faster contact with me and Contributors
+> Join [QUI Discord server](https://discord.gg/zjjqBnx6xu) for help and faster contact with me and Contributors
 
 In this document:
 - [About QUI](#about)
@@ -70,13 +70,11 @@ Remember to check, if you are doing everything correctly. Often small mistakes c
 If you are unsure if that's a bug - you should report that too.
 
 You can report the bug:
-- In -- to smieszne coś
-- On Issues category ()
-- On [QUI Discord server]()
+- [SECURITY.md](https://github.com/Aleq777/Stormworks-QUI/blob/Official/SECURITY.md)
 
 ## <a name="contribute"></a> Contribution
 
-If you get to know well with the QUI library and want to contribute - read [CONTRIBUTION.md]()
+If you get to know well with the QUI library and want to contribute - read [CONTRIBUTTING.md](https://github.com/Aleq777/Stormworks-QUI/blob/Official/CONTRIBUTING.md)
 
 # <a name="include"></a> II. INCLUDE QUI IN THE PROJECT
 
@@ -86,18 +84,18 @@ If you get to know well with the QUI library and want to contribute - read [CONT
 > When creating a Lua project for Stormworks microcontroller, you should always use an IDE or Text Editor.
 > It's easier, faster and more conveniet.
 
-The easiest way to create UI is using [Visual Studio Code]() with those extensions:
-- With this extension: [LifeBoatAPI]()
-- Lua: [Lua Debug]()
+The easiest way to create UI is using [Visual Studio Code](https://code.visualstudio.com) with those extensions:
+- With this extension: [LifeBoatAPI](https://marketplace.visualstudio.com/items?itemName=NameousChangey.lifeboatapi)
+- Lua: [Lua Debug](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug)
 > [!WARNING]
 > LifeBoatAPi doesn't support newest version of `Lua Debug`. Press `Install specific version ...` and select `1.61.0` or `1.60.4`
-- [Lua Language Server]() (for annotations `---@` - they help a lot)
+- [Lua Language Server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) (for annotations `---@` - they help a lot)
 
 
 > [!NOTE]
 > If you are using different IDE, you will need to manually copy, paste and remove some parts of code.
 > You will must use a Lua code minifier too.
-> See [OPTIMISE_ME.md]() for manual optimalisation.
+> See [OPTIMISE_ME.md](https://github.com/Aleq777/Stormworks-QUI/blob/Official/OPTIMISE_ME.md) for manual optimalisation.
 
 ### <a name="vsc"></a> How to use VSC + LifeBoatAPI
 
@@ -144,7 +142,7 @@ require ('QUI.Base') -- In case the location is QUI/Base.lua
 
 There are 2 types of Templates:
 - **Official Templates** (`Templates/`) - made by QUI devs, 100% compatible and up to date.
-- **Community Templates** (`Community Templates/`) - made by Contributors, reviewed by QUI devs before adding to the QUI repository. [Become a Contributor]()
+- **Community Templates** (`Community Templates/`) - made by Contributors, reviewed by QUI devs before adding to the QUI repository. [Become a Contributor](https://github.com/Aleq777/Stormworks-QUI/blob/Official/CONTRIBUTING.md)
 
 You can add them by:
 ```lua
@@ -160,7 +158,7 @@ require ('Community Templates.Car Dashboard') -- for Community Templates
 
 There are 2 types of Extensions, too:
 - **Official Extensions** (`Extensions/`) - made by QUI devs, fully compatible with base QUI functionalities.
-- **Community Extensions** (`Community Extensions/`) - made by Contributors, reviewed by QUI devs. [Become a Contributor]()
+- **Community Extensions** (`Community Extensions/`) - made by Contributors, reviewed by QUI devs. [Become a Contributor](https://github.com/Aleq777/Stormworks-QUI/blob/Official/CONTRIBUTING.md)
 
 You can add them by:
 ```lua
@@ -173,7 +171,7 @@ require ('Community Extensions.3D') -- for Community Extensions
 There are many IDE's with different supports for Lua/Stormworks. In case your IDE doesn't support `require` properly - you **must** paste the files' contents manually.
 
 > [!NOTE]
-> If your IDE doesn't support `---@section` annotation - see [OPTIMISE_ME.md]()
+> If your IDE doesn't support `---@section` annotation - see [OPTIMISE_ME.md](https://github.com/Aleq777/Stormworks-QUI/blob/Official/OPTIMISE_ME.md)
 
 
 # <a name="using"></a> III. USING QUI
@@ -183,7 +181,7 @@ QUI doesn't work in the same way as basic Stormworks Lua, but it can in some cas
 ## <a name="simple"></a> Simple Project (beginners)
 
 > [!TIP]
-> If you are a programmer beginner, learn basic [Lua]() - it will help you a lot. Don't worry - it's an easy language.
+> If you are a programmer beginner, learn basic [Lua](https://www.lua.org/docs.html) - it will help you a lot. Don't worry - it's an easy language.
 > If you are a Stormworks beginner, use `Draw*` functions from `QUI`, they will help you understand Stormworks Lua.
 
 1. Draw a straight line
@@ -339,7 +337,7 @@ Now, time for bigger examples.
 
 ### <a name="code"></a> Code examples
 
-We consider the [Simple Webpage](). It uses [Base.lua](), [Extensions/Webpage.lua](), [Templates/Interactives/Button.lua]()
+We consider the [Simple Webpage](). It uses [Base.lua](https://github.com/Aleq777/Stormworks-QUI/blob/Official/Scripts/Base.lua), [Extensions/Webpage.lua](), [Templates/Interactives/Button.lua]()
 
 ```lua
 require ('QUI.Base')
@@ -369,7 +367,7 @@ end
 ### Version Support
 
 > [!TIP]
-> See [SECURITY.md]() for version support
+> See [SECURITY.md](https://github.com/Aleq777/Stormworks-QUI/blob/Official/SECURITY.md) for version support
 
 As of the Stormworks Lua doesn't need to be secured, version support has a different meaning.
 
