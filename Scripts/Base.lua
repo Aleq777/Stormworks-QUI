@@ -978,7 +978,7 @@ Templates = {
         SetColor(obj.Style.Fore)
         for k, v in pairs(totable(obj.Text)) do
             if v == '\n' then
-                screen.drawTextBox(x + a, y + a + mod, w, 5, builder, 0, 0)   ---@diagnostic disable-line:undefined-global
+                screen.drawTextBox(x + a, y + a + mod, w, 5, builder, 0, 0)     ---@diagnostic disable-line:undefined-global
                 builder = ""
                 mod = mod + 6
             else
@@ -986,13 +986,13 @@ Templates = {
             end
         end
 
-        -- In case if builder isn't empty
-        screen.drawTextBox(x + a, y + a + mod, w, h, builder, 0, 0)       ---@diagnostic disable-line:undefined-global
+        screen.drawTextBox(x + a, y + a + mod, w, 5, builder, 0, 0)     ---@diagnostic disable-line:undefined-global
 
-        -- styles
+
+
         if obj.Style.Decor == 'u' then
 
-            DrawTrigLine(x, y + h - 2, 0, w, obj.Style.Fore)
+            DrawTrigLine(x, y + a + h + 1, 0, w, obj.Style.Fore)
 
         elseif obj.Style.Decor == 's' then
 

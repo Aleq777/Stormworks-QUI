@@ -34,12 +34,10 @@ In this document:
   - [Official Templates](#to)
   - [Community Templates](#tc)
   - [Custom Template](#tcustom)
-  - [Contribute Template](#tcontribute)
 - [Extensions](#extensions)
   - [Official Extensions](#eo)
   - [Community Extensions](#ec)
   - [Custom Extension](#ecustom)
-  - [Contribute Extension](#econtribute)
 - [Other](#other)
   - [Policy](#policy)
 
@@ -103,19 +101,19 @@ The easiest way to create UI is using [Visual Studio Code]() with those extensio
 
 ### <a name="vsc"></a> How to use VSC + LifeBoatAPI
 
-1. After installing VSC and LifeBoatAPI extension, press `Ctrl + Shift + P` or `Ctrl + P` in VSC and search for `Stormworks: New microcontroller project`
+1. After installing VSC and LifeBoatAPI extension, press `Ctrl + Shift + P` or `Ctrl + P` in VSC and search for `>Stormworks: New microcontroller project`
 <img src="./.github/Resources/1.png" alt="Stormworks: New Microcontroller Porject">
 
-0. Select project's location. After that, your project's files should look like this:
+2. Select project's location. After that, your project's files should look like this:
 <img src="./.github/Resources/2.png" alt=".vscode/MyMicronotroller.lua">
 
-0. You can configure Microcontroller Simulation here, but you don't need to as it's already preconfigured
+3. You can configure Microcontroller Simulation here, but you don't need to as it's already preconfigured
 <img src="./.github/Resources/3.png" alt="Search for `---@section __LB_SIMULATOR_ONLY__`">
 
-0. Head down to `[ IN-GAME CODE ]` part. Here, you can write the microcontroller's script.
+4. Head down to `[ IN-GAME CODE ]` part. Here, you can write the microcontroller's script.
 <img src="./.github/Resources/4.png" alt="[ IN-GAME CODE ]">
 
-0. By pressing `F6`, you start the simulation. When you're ready, you can minify your code by pressing `F7` and then copy the file's content in `_build/out/release/MyMicrocontroller.lua` (or other file name).
+5. By pressing `F6`, you start the simulation. When you're ready, you can minify your code by pressing `F7` and then copy the file's content in `_build/out/release/MyMicrocontroller.lua` (or other file name).
 > [!WARNING]
 > LifeBoatAPI, even considered as the best SW monitor simulator, has sometimes different outputs. Compare the Simulator's output and in-game monitor from time to time.
 6. To use QUI, install the library (or specific files) and paste them in your microcontroller's project (the best practice is to paste them inside a folder, like `QUI`). Include QUI by `require` function. [More](#add)
@@ -128,8 +126,8 @@ The easiest way to create UI is using [Visual Studio Code]() with those extensio
 or
 <img src="./.github/Resources/github2.png" alt="Releases tab">
 
-0. Download the files and install them inside your project's files (best in a dedicated folder).
-0. Include any file using `require` function
+2. Download the files and install them inside your project's files (best in a dedicated folder).
+3. Include any file using `require` function
 ```lua
 require ('QUI.Base') -- In case the location is QUI/Base.lua
 ```
@@ -158,6 +156,7 @@ require ('Community Templates.Car Dashboard') -- for Community Templates
 
 > [!TIP]
 > Some of the QUI Extensions may be not connected to the QUI at all. If you need something for non-monitor-projects, you can look up there and see if there's something for you.
+> Example: `Extensions/Time` - you can use it for programming machines etc.
 
 There are 2 types of Extensions, too:
 - **Official Extensions** (`Extensions/`) - made by QUI devs, fully compatible with base QUI functionalities.
@@ -361,15 +360,34 @@ end
 
 ## <a name="to"></a> Official `Templates`
 
+Official Templates, as mentioned earlier, are made by QUI Devs. They're created to work with QUI without any problem.
+
+You can find Official Templates [here]()
+
 ## <a name="tc"></a> `Community Templates`
+
+Community Templates are contributed templates that were accepted by QUI Devs - they are meeting QUI coding standards, are optimised and tested. You may encounter custom Templates outside QUI library - we recomend to contribute custom projects to the QUI library, so it's easy accessed and everyone are sure that everything works fine.
+
+
+You can find Community Templates [here]()
 
 ## <a name="tcustom"></a> `Custom Template`
 
-## <a name="tcontribute"></a> Contribute `Template`
+> [!IMPORTANT]
+> Sometimes, we will contact you to join push your Community Template to Official Templates, co-work for Official Template or make our version of that Template.
+
+You can create your own Template. If you are willing to contribute - see [CONTRIBUTING.md]() and [Custom Template.lua]()
+
+If you have any problems - join [QUI Discord server]() to get fast help.
+
 
 # <a name="extensions"></a> V. EXTENSIONS
 
 ## <a name="eo"></a> Official `Extensions`
+
+Official Extensions are made by QUI Devs to give more possibilities for QUI and don't change it's compatibility.
+
+You can find Official Extensions [here]()
 
 ## <a name="ec"></a> `Community Extensions`
 
@@ -396,3 +414,5 @@ Version support meaning:
 ### Contributions
 
 ### Help and issues
+
+### Fixing QUI code
