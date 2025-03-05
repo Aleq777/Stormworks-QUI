@@ -4,8 +4,14 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.2.0-alpha | :yellow_square: |
+| 0.3.0-beta | :white_check_mark: |
+| 0.2.0-alpha | :x: |
 | 0.1.0-alpha | :x: |
+
+Version support meaning:
+- ✅ - QUI Team will help you with your code, will listen to your suggestions about this version and new Templates and Extensions will be compatible with those versions. Often Newest, Recommended and Newest Beta will be supported.
+- 🟨 - QUI Team will help you with your code, new Templates and Extensions may (but not need to) be compatible with those versions.
+- ❌ - This version is outdated, you should move to the newest stable version.
 
 ## Reporting a Vulnerability
 
