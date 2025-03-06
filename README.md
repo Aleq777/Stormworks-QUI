@@ -1,3 +1,17 @@
+!! Branches !!
+==============
+
+I recommend downloading files from `Tags`, where you can select the version.
+**Latest** is the newest release.
+**Recommended** is a version that has the least known bugs/is considered the best to use for now.
+**Newest** is the newest version in general (alpha, beta, rc). It may contain bugs, it may change alot. Testing this version will really help developing QUI.
+
+About __Branches__:
+- `Official` contains **latest** version
+- `Recommended` contains **recommended** version
+- `Newest` contains **newest** version
+- other - useless, don't use them
+
 # I. INTRODUTION
 
 Hello, everyone!
