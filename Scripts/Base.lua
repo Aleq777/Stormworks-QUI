@@ -480,14 +480,19 @@ end
 
 ---@section
 
+
+--- Executes anonymous function with any type of argument
+---@param func function Anonymous function to execut
+---@param args any
+---@return any|nil? # `func` return
 function Execute(func, args)
     if type (args) == "table" then
-        func(table.unpack(args))
+        return func(table.unpack(args))
     elseif args == nil then
-        func()
-    else
-        func(args)
+        return func()
     end
+
+    return func(args)
 end
 
 ---@endsection
