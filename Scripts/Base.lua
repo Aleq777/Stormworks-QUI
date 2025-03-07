@@ -478,6 +478,19 @@ end
 ---@endsection
 
 
+---@section
+
+function Execute(func, args)
+    if type (args) == "table" then
+        func(table.unpack(args))
+    elseif args == nil then
+        func()
+    else
+        func(args)
+    end
+end
+
+---@endsection
 
 
 
@@ -1403,12 +1416,40 @@ end
 --- INTERACTIONS
 --- You can create your own interactive Templates.
 --- You can get some ready interactive Templates, search for modules: Button, HTML Select, Second Interactivity, Slider, Input and CheckBox etc.
----@section _Data 1 __INTERACTIVES__
 
-
+---@section _Data
 
 ---@type Data[] List of data and values required for interactive Templates
 _Data = { }
+
+---@endsection
+
+
+
+
+
+---@section Data
+
+---A constructor for `Data` type
+---@param value any The value of Data element
+---@param active boolean|nil? If `true`, Object will be displayed as active
+---@param funcOn boolean|nil? If `true`, Object will run the functions
+---@param prevClick boolean|nil? Used for Toggle, Pulse etc. It saves Previous tick Click state
+---@return Data
+function Data(value, active, funcOn, prevClick)
+    return {
+        Value = value,
+        Active = active,
+        FuncOn = funcOn,
+        PrevClick = prevClick
+    }
+end
+
+---@endsection
+
+
+
+
 
 
 ---@section GetData
@@ -1424,6 +1465,7 @@ function GetData(id)
 end
 
 ---@endsection
+
 
 
 
@@ -1451,6 +1493,7 @@ end
 
 
 
+
 ---@section ForceData
 
 --- Forces creating a new interactive data. Best when creating custom interactive templates.
@@ -1472,10 +1515,18 @@ end
 
 
 
+---@section Register
 
----@endsection INTERACTIVES
+---Register's a new data. It's meant for Templates.
+---@param id any Object id
+---@param default Data If not exists, it will have this value assigned
+function Register(id, default)
+    if not _Data[id] then
+        _Data[id] = default
+    end
+end
 
-
+---@endsection
 
 
 
@@ -1488,8 +1539,6 @@ end
 --- TIME
 ---@see Extensions.Time for time managment and functions
 ---@section Update
-
-
 
 
 --- Updates every tick, at the end of `onTick` function (there you should place this function).<br>
