@@ -478,8 +478,7 @@ end
 ---@endsection
 
 
----@section
-
+---@section Execute
 
 --- Executes anonymous function with any type of argument
 ---@param func function Anonymous function to execut
