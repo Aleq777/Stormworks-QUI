@@ -27,7 +27,7 @@ Templates["Button"] = function (x, y, obj, id)
 
     ---@type ButtonMode
     obj.Mode = obj.Mode or 0
-    obj.StyleOn.Border = obj.StyleOn.Border or obj.StyleOn.Fore
+    obj.StyleOn.Border = obj.StyleOn.Border or obj.StyleOn.Back
     obj.StyleOff.Border = obj.StyleOff.Border or obj.StyleOff.Fore
 
 

@@ -7,12 +7,11 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "LIFEBOATAPI.lifeboatapi-vscode",
                 "sumneko.lua",
                 "actboy168.lua-debug"
             ]
         }
     },
     "postCreateCommand": "code --install-extension actboy168.lua-debug@1.61",
-    "remoteUser": "vscode"
+    "remoteUser": "root"
 }
