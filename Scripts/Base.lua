@@ -922,79 +922,79 @@ end
 Templates = {
     ---@section "Line"
     ["Line"] = function (x, y, obj)
-        SetColor(obj.Color)
-        screen.drawLine(x, y, obj.X + x, obj.Y + y)     ---@diagnostic disable-line:undefined-global
+        SetColor(obj.ColorParam)
+        screen.drawLine(x, y, obj.X_Param + x, obj.Y_Param + y)     ---@diagnostic disable-line:undefined-global
     end,
     ---@endsection
     ---@section "TrigLine"
     ["TrigLine"] = function (x, y, obj)
-        DrawLine(x, y, obj.R * cos(obj.Angle), obj.R * sin(obj.Angle), obj.Color)
+        DrawLine(x, y, obj.R_Param * cos(obj.AngleParam), obj.R_Param * sin(obj.AngleParam), obj.ColorParam)
     end,
     ---@endsection
     ---@section "Dot"
     ["Dot"] = function (x, y, obj)
-        DrawLine(x, y, 1, 0, obj.Color)
+        DrawLine(x, y, 1, 0, obj.ColorParam)
     end,
     ---@endsection
     ---@section "Box"
     ["Box"] = function (x, y, obj)
         SetColor(obj.Style.Back)
-        screen.drawRectF(x, y, obj.Width, obj.Height)   ---@diagnostic disable-line:undefined-global
+        screen.drawRectF(x, y, obj.WidthParam, obj.HeightParam)   ---@diagnostic disable-line:undefined-global
         SetColor(obj.Style.Border or TRANS)
-        screen.drawRect(x, y, obj.Width - 1, obj.Height - 1)    ---@diagnostic disable-line:undefined-global
+        screen.drawRect(x, y, obj.WidthParam - 1, obj.HeightParam - 1)    ---@diagnostic disable-line:undefined-global
     end,
     ---@endsection
     ---@section "Triangle"
     ["Triangle"] = function (x, y, obj)
         local function coords()
-            return obj.Ax + x, obj.Ay + y, obj.Bx + x, obj.By + y, obj.Cx + x, obj.Cy + y
+            return obj.Ax_Param + x, obj.Ay_Param + y, obj.Bx_Param + x, obj.By_Param + y, obj.Cx_Param + x, obj.Cy_Param + y
         end
 
-        SetColor(obj.Style.Back)
+        SetColor(obj.StyleParam.Back)
         screen.drawTriangleF(coords())      ---@diagnostic disable-line:undefined-global
-        SetColor(obj.Style.Border or TRANS)
+        SetColor(obj.StyleParam.Border or TRANS)
         screen.drawTriangle(coords())       ---@diagnostic disable-line:undefined-global
     end,
     ---@endsection
     ---@section "Circle"
     ["Circle"] = function (x, y, obj)
-        SetColor(obj.Style.Back)
+        SetColor(obj.StyleParam.Back)
         screen.drawCircleF(x, y, obj.R)     ---@diagnostic disable-line:undefined-global
-        SetColor(obj.Style.Border or obj.Style.Back) -- it's a better circle when bordered lol
-        screen.drawCircle(x, y, obj.R)      ---@diagnostic disable-line:undefined-global
+        SetColor(obj.StyleParam.Border or obj.StyleParam.Back) -- it's a better circle when bordered lol
+        screen.drawCircle(x, y, obj.R_Param)      ---@diagnostic disable-line:undefined-global
     end,
     ---@endsection
     ---@section "Text"
     ["Text"] = function (x, y, obj)
-        SetColor(obj.Color)
-        screen.drawText(x, y, obj.Text)     ---@diagnostic disable-line:undefined-global
+        SetColor(obj.ColorParam)
+        screen.drawText(x, y, obj.TextParam)     ---@diagnostic disable-line:undefined-global
     end,
     ---@endsection
     ---@section "StyledText"
     ["StyledText"] = function (x, y, obj)
         -- width
-        local w = obj.Width
+        local w = obj.WidthParam
 
         if not w then
-            w = TextWidth(obj.Text)
+            w = TextWidth(obj.TextParam)
             w = w + 1
         end
 
         -- height
-        local h, ln = TextHeight(obj.Text, w)
+        local h, ln = TextHeight(obj.TextParam, w)
 
-        if obj.Height then
-            h = obj.Height
+        if obj.HeightParam then
+            h = obj.HeightParam
         end
 
 
         -- Draw
         -- drawTextBox is little bugged, so I had to this (I think)
-        local a, builder, mod = obj.Style.Border and 2 or 0, "", 0
-        DrawBox(x, y, w + 1.5 * a - 1, h + 2 * a, obj.Style)
+        local a, builder, mod = obj.StyleParam.Border and 2 or 0, "", 0
+        DrawBox(x, y, w + 1.5 * a - 1, h + 2 * a, obj.StyleParam)
 
-        SetColor(obj.Style.Fore)
-        for k, v in pairs(totable(obj.Text)) do
+        SetColor(obj.StyleParam.Fore)
+        for k, v in pairs(totable(obj.TextParam)) do
             if v == '\n' then
                 screen.drawTextBox(x + a, y + a + mod, w, 5, builder, 0, 0)     ---@diagnostic disable-line:undefined-global
                 builder = ""
@@ -1008,14 +1008,14 @@ Templates = {
 
 
 
-        if obj.Style.Decor == 'u' then
+        if obj.StyleParam.Decor == 'u' then
 
-            DrawTrigLine(x, y + a + h + 1, 0, w, obj.Style.Fore)
+            DrawTrigLine(x, y + a + h + 1, 0, w, obj.StyleParam.Fore)
 
-        elseif obj.Style.Decor == 's' then
+        elseif obj.StyleParam.Decor == 's' then
 
             for i = 1, ln do
-                DrawTrigLine(x, y + 2 + 6 * (i - 1), 0, w, obj.Style.Fore)
+                DrawTrigLine(x, y + 2 + 6 * (i - 1), 0, w, obj.StyleParam.Fore)
             end
 
         end
@@ -1095,9 +1095,9 @@ end
 ---@nodiscard
 function Line(x, y, color, isAnon)
     return Object("Line", {
-        X = x,
-        Y = y,
-        Color = color
+        X_Param = x,
+        Y_Param = y,
+        ColorParam = color
     }, isAnon)
 end
 
@@ -1116,9 +1116,9 @@ end
 ---@nodiscard
 function TrigLine(angle, r, color, isAnon)
     return Object("TrigLine", {
-        Angle = angle,
-        R = r,
-        Color = color
+        AngleParam = angle,
+        R_Param = r,
+        ColorParam = color
     }, isAnon)
 end
 
@@ -1135,7 +1135,7 @@ end
 ---@nodiscard
 function Dot(color, isAnon)
     return Object("Dot", {
-        Color = color
+        ColorParam = color
     }, isAnon)
 end
 
@@ -1154,9 +1154,9 @@ end
 ---@nodiscard
 function Box(width, height, style, isAnon)
     return Object("Box", {
-        Width = width,
-        Height = height,
-        Style = style,
+        WidthParam = width,
+        HeightParam = height,
+        StyleParam = style,
      }, isAnon)
 end
 
@@ -1179,9 +1179,9 @@ end
 ---@nodiscard
 function Triangle(ax, ay, bx, by, cx, cy, style, isAnon)
     return Object("Triangle", {
-        Ax = ax, Ay = ay,
-        Bx = bx, By = by,
-        Cx = cx, Cy = cy,
+        Ax_Param = ax, Ay_Param = ay,
+        Bx_Param = bx, By_Param = by,
+        Cx_Param = cx, Cy_Param = cy,
         Style = style
     }, isAnon)
 end
@@ -1200,8 +1200,8 @@ end
 ---@nodiscard
 function Circle(r, style, isAnon)
     return Object("Circle", {
-        R = r,
-        Style = style
+        R_Param = r,
+        StyleParam = style
     }, isAnon)
 end
 
@@ -1220,8 +1220,8 @@ end
 ---@nodiscard
 function Text(text, color, isAnon)
     return Object("Text", {
-        Text = text,
-        Color = color
+        TextParam = text,
+        ColorParam = color
     }, isAnon)
 end
 
@@ -1242,10 +1242,10 @@ end
 function StyledText(text, style, width, height, isAnon)
     local w = TextWidth(text)
     return Object("StyledText", {
-        Text = text,
-        Style = style,
-        Width = width,
-        Height = height
+        TextParam = text,
+        StyleParam = style,
+        WidthParam = width,
+        HeightParam = height
     }, isAnon)
 end
 
