@@ -1,9 +1,6 @@
 {
     "name": "QUI Development",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-    "features": {
-        "ghcr.io/devcontainers/features/lua:1": {}
-    },
     "customizations": {
         "vscode": {
             "extensions": [
