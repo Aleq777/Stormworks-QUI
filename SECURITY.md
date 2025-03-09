@@ -4,7 +4,8 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 0.3.0-beta | :white_check_mark: |
+| 0.4.0-beta | :white_check_mark: |
+| 0.3.0-beta | :yellow_square: |
 | 0.2.0-alpha | :x: |
 | 0.1.0-alpha | :x: |
 
