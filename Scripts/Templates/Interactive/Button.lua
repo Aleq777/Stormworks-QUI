@@ -5,7 +5,7 @@
 ---     Button - a button that user can press. It can be push, pulse or toggle.
 ---@module 'Base' REQUIRED
 
-require ("Base")
+require("Base")
 
 
 ---@alias ButtonMode
@@ -21,7 +21,7 @@ Templates["Button"] = function (x, y, obj, id)
 
     Register(id, Data(nil, false, false, false))
 
-    local w = obj.Width or TextWidth(obj.Text)
+    local w = obj.Width or TextWidth(obj.Content)
     local h = obj.Height or 9 -- Borders are required for Buttons, even TRANSparent ones
     local data = _Data[id]
 
@@ -34,7 +34,7 @@ Templates["Button"] = function (x, y, obj, id)
     -- Touch logic
 
     -- Touched?
-    local touch = IsInBox(x + 1, y + 1, obj.Width + x - 2, obj.Height + y - 2) -- borders are unclickable
+    local touch = IsInBox(x + 1, y + 1, w + x - 2, h + y - 2) -- borders are unclickable
 
     -- Push
     if obj.Mode == 0 then
@@ -65,7 +65,7 @@ Templates["Button"] = function (x, y, obj, id)
 
 
     -- Draw
-    DrawStyledText(x, y, obj.Text, data.Active and obj.StyleOn or obj.StyleOff, w, h)
+    DrawStyledText(x, y, obj.Content, data.Active and obj.StyleOn or obj.StyleOff, w, h)
 
     -- Execute
     if data.Active then
@@ -94,7 +94,7 @@ end
 ---@nodiscard
 function Button(title, styleOff, styleOn, width, height, mode, func, args, isAnon)
     return Object("Button", {
-        Text = title,
+        Content = title,
         Width = width, Height = height,
         StyleOff = styleOff, StyleOn = styleOn,
         Mode = mode,

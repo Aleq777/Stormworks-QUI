@@ -965,37 +965,42 @@ Templates = {
     ---@endsection
     ---@section "Text"
     ["Text"] = function (x, y, obj)
+        obj.Content = tostring(obj.Content)
         SetColor(obj.Color)
         screen.drawText(x, y, obj.Content)     ---@diagnostic disable-line:undefined-global
     end,
     ---@endsection
     ---@section "StyledText"
     ["StyledText"] = function (x, y, obj)
+        obj.Content = tostring(obj.Content)
+        local a = obj.Style.Border and 2 or 0
         -- width
         local w = obj.Width
-
         if not w then
-            w = TextWidth(obj.Content)
-            w = w + 1
+            w = TextWidth(obj.Content) + 2 * a
         end
 
         -- height
-        local h, ln = TextHeight(obj.Content, w)
-
-        if obj.Height then
-            h = obj.Height
+        local h, ln = obj.Height, nil
+        if h then
+            ln = (h + 1) / 6
+        else
+            h, ln = TextHeight(obj.Content, w)
+            h = h + 2 * a
         end
 
+        -- Background and Border
+        DrawBox(x, y, w, h, obj.Style)
 
-        -- Draw
-        -- drawTextBox is little bugged, so I had to this (I think)
-        local a, builder, mod = obj.Style.Border and 2 or 0, "", 0
-        DrawBox(x, y, w + 1.5 * a - 1, h + 2 * a, obj.Style)
-
+        local builder, mod = "", 0
+        local function _draw()
+            screen.drawTextBox(x + a, y + a + mod, w - 2 * a + 1, 5, builder, 0, 0)     ---@diagnostic disable-line:undefined-global
+        end
+        
         SetColor(obj.Style.Fore)
         for k, v in pairs(totable(obj.Content)) do
             if v == '\n' then
-                screen.drawTextBox(x + a, y + a + mod, w, 5, builder, 0, 0)     ---@diagnostic disable-line:undefined-global
+                _draw()
                 builder = ""
                 mod = mod + 6
             else
@@ -1003,7 +1008,10 @@ Templates = {
             end
         end
 
-        screen.drawTextBox(x + a, y + a + mod, w, 5, builder, 0, 0)     ---@diagnostic disable-line:undefined-global
+        -- Draw
+        -- drawTextBox is little bugged, so I had to this (I think)
+
+        _draw()
 
 
 
@@ -1212,14 +1220,14 @@ end
 ---@section Text
 
 --- Simple text. if you want background colors, borders, decorations - use `StyledText`
----@param text string
+---@param content any
 ---@param color Color|nil? Color of the text
 ---@param isAnon boolean|nil?
 ---@return number|Object
 ---@nodiscard
-function Text(text, color, isAnon)
+function Text(content, color, isAnon)
     return Object("Text", {
-        Content = text,
+        Content = content,
         Color = color
     }, isAnon)
 end
@@ -1231,17 +1239,17 @@ end
 ---@section StyledText
 
 --- Super fun text. Customise anything.
----@param text string
+---@param content any
 ---@param style Style Text color, background color and border!
 ---@param width number|nil? `Default = no limit`
 ---@param height number|nil? `Default = no limit`
 ---@param isAnon boolean|nil?
 ---@return number|Object
 ---@nodiscard
-function StyledText(text, style, width, height, isAnon)
-    local w = TextWidth(text)
+function StyledText(content, style, width, height, isAnon)
+    local w = TextWidth(content)
     return Object("StyledText", {
-        Content = text,
+        Content = content,
         Style = style,
         Width = width,
         Height = height
@@ -1378,11 +1386,11 @@ end
 --- Simple text. if you want background colors, borders, decorations - use `StyledText`
 ---@param x number Position
 ---@param y number Position
----@param text string
+---@param content any
 ---@param color Color|nil? Color of the text
-function DrawText(x, y, text, color)
+function DrawText(x, y, content, color)
     Draw(x, y,
-        Text(text, color, true)
+        Text(content, color, true)
     )
 end
 
@@ -1395,13 +1403,13 @@ end
 --- Super fun text. Customise anything.
 ---@param x number Position
 ---@param y number Position
----@param text string
+---@param content any
 ---@param style Style Text color, background color and border!
 ---@param width number|nil? `Default = no limit`
 ---@param height number|nil? `Default = no limit`
-function DrawStyledText(x, y, text, style, width, height)
+function DrawStyledText(x, y, content, style, width, height)
     Draw(x, y,
-        StyledText(text, style, width, height, true)
+        StyledText(content, style, width, height, true)
     )
 end
 
