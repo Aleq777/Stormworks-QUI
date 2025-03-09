@@ -21,7 +21,11 @@ Templates["Button"] = function (x, y, obj, id)
 
     Register(id, Data(nil, false, false, false))
 
-    local w = obj.Width or TextWidth(obj.Content)
+    local w = obj.Width
+    if not w then
+        w = TextWidth(obj.Content) + 4
+    end
+
     local h = obj.Height or 9 -- Borders are required for Buttons, even TRANSparent ones
     local data = _Data[id]
 
@@ -35,40 +39,45 @@ Templates["Button"] = function (x, y, obj, id)
 
     -- Touched?
     local touch = IsInBox(x + 1, y + 1, w + x - 2, h + y - 2) -- borders are unclickable
+    local pulse = touch and not data.PrevClick
 
     -- Push
     if obj.Mode == 0 then
-
+        
         _Data[id] = Data(nil, touch, touch)
+
+    -- Pulse
+    elseif obj.Mode == 1 then
+
+        if pulse then
+
+            data.FuncOn = true
+
+        else
+
+            data.FuncOn = false
+        end
+
+        data.Active = touch
 
     else
 
-        if touch and not data.PrevClick then
+        if pulse then
 
-            -- Pulse
-            if obj.Mode == 1 then
-
-                data.FuncOn = not data.PrevClick
-
-            -- Toggle
-            else
-
-                _Data[id] = Data(nil, not data.FuncOn, not data.FuncOn)
-
-            end
+            _Data[id] = Data(nil, not data.FuncOn, not data.FuncOn, true)
 
         end
 
-        data.PrevClick = touch
-
     end
+
+    data.PrevClick = touch
 
 
     -- Draw
     DrawStyledText(x, y, obj.Content, data.Active and obj.StyleOn or obj.StyleOff, w, h)
 
     -- Execute
-    if data.Active then
+    if data.FuncOn then
         Execute(obj.Func, obj.Args)
     end
 end
