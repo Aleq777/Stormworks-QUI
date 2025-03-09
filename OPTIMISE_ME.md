@@ -7,6 +7,27 @@ There are many ways to optimise your code - in this document you'll read about t
 
 # II. SHORTER CODE
 
+## Templates
+
+If you are using Official/Community Templates, you can do some changes to lower character count
+
+from this:
+```lua
+-- Template "Name"
+Templates["Name"] = function (x, y, obj, id) end -- long
+```
+
+to this (cut the code and paste to `Base.lua`):
+```lua
+Templates = {
+    -- ...
+    ["Name"] = function (x, y, obj, id) end
+} -- shorter in general
+```
+
+> [!NOTE]
+> You should use `["Name"] = ...` and not `Name = ...` for Template element. Why? In that way, the redundancy removal works better.
+
 ## VSC + LifeBoatAPI
 
 When you are using VSC and LifeBoatAPI extension, length of the code won't be a problem.

@@ -1,3 +1,12 @@
+!! Branches !!
+==============
+
+- **Official** - Contains the newest release
+- **Recommended** - Contains the recommended release (the least known bugs, best for use)
+- **Newest** - Contains the newest version (Alpha, Beta, RC)
+In `Tags` you can select specifically the version you would like to download.
+If you want to edit code (contribute, create Template/Extension), then the best choice is **Official** (which is default).
+
 # I. INTRODUTION
 
 Hello, everyone!
