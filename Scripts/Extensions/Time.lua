@@ -3,11 +3,27 @@
 --- Author: @Aleq777
 ---     Introduces time (ticks) management
 
+---@section Ticks
+
+---@type integer Number of ticks from spawn to now
+Ticks = 0
+
+---@endsection
+
+
+
+
+
+
 
 ---@section ToUpdate
 
 ---@type function[] List of events to run every tick/update
-ToUpdate = { }
+ToUpdate = {
+    function ()
+        Ticks = Ticks + 1
+    end
+}
 
 ---@endsection
 
