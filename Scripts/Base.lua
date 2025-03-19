@@ -132,7 +132,12 @@ deg = math.deg
 ---@section pi
 PI = math.pi
 ---@endsection
-
+---@section min
+min = math.min
+---@endsection
+---@section max
+max = math.max
+---@endsection
 
 ---@section sin
 
@@ -331,7 +336,7 @@ function clamp(num, min, max)
     min = min or 0
     max = max or 1
 
-    return math.max(math.min(num, max), min)
+    return max(min(num, max), min)
 end
 
 ---@endsection
